@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Inicio</title>
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">   
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">         
+</head>
+<body class="container">
+	<h3>Contactos</h3>
+	<a class="waves-effect waves-light btn" href="/nuevo"><i class="material-icons left">add</i>Registrar Contacto</a>
+	<table class="responsive-table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Fecha Nacimiento</th>
+				<th>Teléfono</th>
+				<th>Email</th>
+				<th>Fecha Registro</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="contacto : ${contactos}" th:object="${contacto}">
+				<td th:text="${id}"></td>
+				<td th:text="*{nombre}"></td>
+				<td th:text="*{#temporals.format(fechaNacimiento, 'dd/MM/YYYY')}"></td>
+				<td th:text="*{telefono}"></td>
+				<td th:text="*{email}"></td>
+				<td th:text="*{#temporals.format(fechaRegistro, 'dd/MM/YYYY hh:mm a')}"></td>
+				<td>
+					<a href="">Editar</a>
+					<a href="">Eliminar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
