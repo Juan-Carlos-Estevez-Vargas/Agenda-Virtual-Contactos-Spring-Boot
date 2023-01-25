@@ -9,6 +9,13 @@
 </head>
 <body class="container">
 	<h3>Contactos</h3>
+	<div class="row" th:if="${msgExito ne null}">
+    	<div class="col s12">
+	     	<div class="card-panel blue accent-2">
+	        	<span class="white-text">[[${msgExito}]]</span>
+	      	</div>
+    	</div>
+  	</div>
 	<a class="waves-effect waves-light btn" href="/nuevo"><i class="material-icons left">add</i>Registrar Contacto</a>
 	<table class="responsive-table">
 		<thead>
@@ -23,7 +30,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="contacto : ${contactos}" th:object="${contacto}">
-				<td th:text="${id}"></td>
+				<td th:text="*{id}"></td>
 				<td th:text="*{nombre}"></td>
 				<td th:text="*{#temporals.format(fechaNacimiento, 'dd/MM/YYYY')}"></td>
 				<td th:text="*{telefono}"></td>

@@ -3,6 +3,9 @@ package com.estevez.agenda.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +27,7 @@ public class Contacto {
 	private Integer id;
 	private String nombre;
 	
+	@DateTimeFormat(iso = ISO.DATE)
 	@Column(name = "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
 	private String telefono;
