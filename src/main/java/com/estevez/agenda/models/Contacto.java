@@ -42,7 +42,7 @@ public class Contacto {
 	@Size(max = 15, message = "El campo debe tener 15 caracteres como máximo")
 	private String telefono;
 	
-	@Email(message = "Formato inválido")
+	@Email(message = "Formato inválido	")
 	//@Pattern(regexp = "")
 	private String email;
 	

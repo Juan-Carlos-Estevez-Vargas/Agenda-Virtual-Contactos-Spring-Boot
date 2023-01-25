@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +26,8 @@ public class ContactoController {
 	private ContactoRepository contactoRepository;
 
 	@GetMapping("/")
-	String index(Model model) {
-		List<Contacto> contactos = contactoRepository.findAll();
+	String index(Pageable pageable, Model model) {
+		Page<Contacto> contactos = contactoRepository.findAll(pageable);
 		model.addAttribute("contactos", contactos);
 		return "index";
 	}
@@ -73,6 +75,14 @@ public class ContactoController {
 		
 		contactoRepository.save(contactoDB);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha actualizado correctamente");
+		return "redirect:/";
+	}
+	
+	@PostMapping("/{id}/eliminar")
+	String eliminarContacto(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		Contacto contactoDB = contactoRepository.getById(id);
+		contactoRepository.delete(contactoDB);
+		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
 		return "redirect:/";
 	}
 

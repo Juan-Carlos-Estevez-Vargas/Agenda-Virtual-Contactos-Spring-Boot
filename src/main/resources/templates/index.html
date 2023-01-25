@@ -5,7 +5,7 @@
 	<title>Inicio</title>
 	<!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">   
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">         
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
 </head>
 <body class="container">
 	<h3>Contactos</h3>
@@ -38,12 +38,25 @@
 				<td th:text="*{#temporals.format(fechaRegistro, 'dd/MM/YYYY hh:mm a')}"></td>
 				<td>
 					<a th:href="@{/{id}/editar(id=*{id})}" class="material-icons">edit</a>
-					<a href="" class="material-icons">remove_circle</a>
+					<button href="" class="material-icons" onclick="eliminarContacto(this)">remove_circle</button>
+					<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	
+	
+</div>
+	
 	<!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+    	function eliminarContacto(elemento) {
+			let ok = confirm("¿Esta seguro de eliminar el contacto?");
+			if (ok) {
+				elemento.nextElementSibling.submit();			
+			}
+		}
+    </script>
 </body>
 </html>
