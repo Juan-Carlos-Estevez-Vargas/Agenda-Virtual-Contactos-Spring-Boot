@@ -24,7 +24,7 @@ public class ContactoController {
 	@Autowired
 	private ContactoRepository contactoRepository;
 
-	@GetMapping("/")
+	@GetMapping("/contactos")
 	String index(Pageable pageable, Model model) {
 		Page<Contacto> contactos = contactoRepository.findAll(pageable);
 		model.addAttribute("contactos", contactos);

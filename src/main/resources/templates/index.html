@@ -9,38 +9,41 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body class="container">
-	<h3>Contactos</h3>
-	<a class="waves-effect waves-light btn" href="/nuevo"><i class="material-icons left">add</i>Registrar Contacto</a>
-	<table class="responsive-table">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Fecha Nacimiento</th>
-				<th>Teléfono</th>
-				<th>Email</th>
-				<th>Fecha Registro</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="contacto : ${contactos}" th:object="${contacto}">
-				<td th:text="*{id}"></td>
-				<td th:text="*{nombre}"></td>
-				<td th:text="*{#temporals.format(fechaNacimiento, 'dd/MM/YYYY')}"></td>
-				<td th:text="*{telefono}"></td>
-				<td th:text="*{email}"></td>
-				<td th:text="*{#temporals.format(fechaRegistro, 'dd/MM/YYYY hh:mm a')}"></td>
-				<td>
-					<a th:href="@{/{id}/editar(id=*{id})}" class="material-icons">edit</a>
-					<button href="" class="material-icons" onclick="eliminarContacto(this)">remove_circle</button>
-					<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+<body>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">Logo</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a th:href="@{/contactos}">Contactos</a></li>
+				<li><a href="">Acerca de</a></li>
+				<li><a href="">Grupos</a></li>
+				<li><a href="">Salir</a></li>
+			</ul>
+		</div>
+	</nav>
 
+	<div class="container">
+		
+		<div class="row">
+			<h3 class="col s8">Contactos</h3>
+			<a style="margin-top: -50px;;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/nuevo"><i class="material-icons left">add</i>Registrar
+				Contacto</a>
+		</div>
 
+		<ul class="collection">
+			<div th:each="contacto : ${contactos}" th:object="${contacto}">
+				<li class="collection-item avatar">
+					<img src="images/yuna.jpg" alt="" class="circle">
+					<span class="title" th:text="*{nombre}"></span>
+					<p th:text="*{telefono}"></p>
+					<div class="secondary-content">
+						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons">edit</i></a>
+						<a onclick="eliminarContacto(this)"><i class="material-icons red-text">remove_circle</i></a>
+						<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
+					</div>
+				</li>
+			</div>
+		</ul>
 	</div>
 
 	<!-- Compiled and minified JavaScript -->
@@ -63,7 +66,7 @@
 						'Eliminado!',
 						'Tu contacto ha sido eliminado.',
 						'success'
-					).then((result) => {						
+					).then((result) => {
 						elemento.nextElementSibling.submit();
 					})
 				}
