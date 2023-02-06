@@ -93,7 +93,7 @@ public class ContactoController {
 		Contacto contactoDB = contactoRepository.getById(id);
 		contactoRepository.delete(contactoDB);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
-		return "redirect:/";
+		return "redirect:/contactos";
 	}
 
 }
