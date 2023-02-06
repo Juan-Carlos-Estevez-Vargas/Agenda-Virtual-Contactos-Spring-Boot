@@ -38,7 +38,7 @@ public class ContactoController {
 
 	@GetMapping("/contactos")
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
-		Pageable pageRequest = PageRequest.of(pagina, 3);
+		Pageable pageRequest = PageRequest.of(pagina, 4);
 		Page<Contacto> contactos = contactoRepository.findAll(pageRequest);
 		model.addAttribute("contactos", contactos);
 		return "contactos";
