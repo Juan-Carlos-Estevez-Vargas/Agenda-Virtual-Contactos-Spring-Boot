@@ -1,7 +1,6 @@
 package com.estevez.agenda.controllers;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,6 @@ public class ContactoController {
 		}
 		contacto.setFechaRegistro(LocalDateTime.now());
 		contactoRepository.save(contacto);
-		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha creado correctamente");
 		return "redirect:/";
 	}
 

@@ -48,22 +48,24 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		function eliminarContacto(elemento) {
-			let ok = Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
+
+			Swal.fire({
+				title: '¿Estas seguro de eliminar el contacto?',
+				text: "No podrás revertir esta acción!",
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
+				confirmButtonText: 'Si, eliminalo!'
 			}).then((result) => {
 				if (result.isConfirmed) {
-					elemento.nextElementSibling.submit();
 					Swal.fire(
-						'Deleted!',
-						'Your file has been deleted.',
+						'Eliminado!',
+						'Tu contacto ha sido eliminado.',
 						'success'
-					)
+					).then((result) => {						
+						elemento.nextElementSibling.submit();
+					})
 				}
 			})
 		}
