@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-	<meta charset="UTF-8"/>
+	<meta charset="UTF-8" />
 	<title>Inicio</title>
 	<!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">   
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body class="container">
 	<h3>Contactos</h3>
-	<div class="row" th:if="${msgExito ne null}">
-    	<div class="col s12">
-	     	<div class="card-panel blue accent-2">
-	        	<span class="white-text">[[${msgExito}]]</span>
-	      	</div>
-    	</div>
-  	</div>
 	<a class="waves-effect waves-light btn" href="/nuevo"><i class="material-icons left">add</i>Registrar Contacto</a>
 	<table class="responsive-table">
 		<thead>
@@ -44,19 +39,35 @@
 			</tr>
 		</tbody>
 	</table>
-	
-	
-</div>
-	
+
+
+	</div>
+
 	<!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-    	function eliminarContacto(elemento) {
-			let ok = confirm("¿Esta seguro de eliminar el contacto?");
-			if (ok) {
-				elemento.nextElementSibling.submit();			
-			}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		function eliminarContacto(elemento) {
+			let ok = Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					elemento.nextElementSibling.submit();
+					Swal.fire(
+						'Deleted!',
+						'Your file has been deleted.',
+						'success'
+					)
+				}
+			})
 		}
-    </script>
+	</script>
 </body>
+
 </html>
