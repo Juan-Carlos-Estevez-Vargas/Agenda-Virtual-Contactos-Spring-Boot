@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Inicio</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="indigo accent-2">
+		<div class="nav-wrapper container">
+			<a th:href="@{/home}" class="brand-logo">Logo</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a th:href="@{/contactos}">Contactos</a></li>
+				<li><a th:href="@{(about)}">Acerca de</a></li>
+				<li><a href="">Grupos</a></li>
+				<li><a href="">Perfil</a></li>
+				<li><a href="">Salir</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		
+		<div class="row">
+			<h3 class="col s8">Contactos</h3>
+			<a style="margin-top: -50px;;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/nuevo"><i class="material-icons left">add</i>Registrar
+				Contacto</a>
+		</div>
+
+		<ul class="collection">
+			<div th:each="contacto : ${contactos}" th:object="${contacto}">
+				<li class="collection-item avatar">
+					<img src="img/contactos.png" alt="" class="circle">
+					<span class="title" th:text="*{nombre}"></span>
+					<p th:text="*{telefono}"></p>
+					<div class="secondary-content">
+						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons">edit</i></a>
+						<a onclick="eliminarContacto(this)"><i class="material-icons red-text">remove_circle</i></a>
+						<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
+					</div>
+				</li>
+			</div>
+		</ul>
+	</div>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		function eliminarContacto(elemento) {
+
+			Swal.fire({
+				title: '¿Estas seguro de eliminar el contacto?',
+				text: "No podrás revertir esta acción!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Si, eliminalo!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire(
+						'Eliminado!',
+						'Tu contacto ha sido eliminado.',
+						'success'
+					).then((result) => {
+						elemento.nextElementSibling.submit();
+					})
+				}
+			})
+		}
+	</script>
+</body>
+
+<footer class="page-footer indigo accent-2">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text">Agendex</h5>
+				<p class="grey-text text-lighten-4">Agendex es un sitio encargado de brindar una interface sólida e
+					intuitiva para administrar contactos, puedes hacerlo mediante grupos o incluso enviandoles un email.
+				</p>
+			</div>
+			<div class="col l4 offset-l2 s12">
+				<h5 class="white-text">Nuestras Redes</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">YouTube</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Tik Tok</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container">
+			© 2023 Agendex Company
+			<a class="grey-text text-lighten-4 right" href="#!">Mas Información</a>
+		</div>
+	</div>
+</footer>
+
+</html>
