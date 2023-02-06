@@ -28,6 +28,11 @@ public class ContactoController {
 	String home() {
 		return "home";
 	}
+	
+	@GetMapping("/about")
+	String about() {
+		return "about";
+	}
 
 	@GetMapping("/contactos")
 	String contactos(Pageable pageable, Model model) {
@@ -49,9 +54,11 @@ public class ContactoController {
 			model.addAttribute("contacto", contacto);
 			return "nuevo";
 		}
+		
 		contacto.setFechaRegistro(LocalDateTime.now());
+			
 		contactoRepository.save(contacto);
-		return "redirect:/";
+		return "redirect:/contactos";
 	}
 
 	@GetMapping("/{id}/editar")

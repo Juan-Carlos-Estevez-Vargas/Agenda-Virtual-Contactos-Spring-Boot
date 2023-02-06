@@ -11,11 +11,11 @@
 
 <body>
 	<nav class="indigo accent-2">
-	   	<div class="nav-wrapper container">
+		<div class="nav-wrapper container">
 			<a th:href="@{/home}" class="brand-logo">Logo</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a th:href="@{/contactos}">Contactos</a></li>
-				<li><a href="">Acerca de</a></li>
+				<li><a th:href="@{(about)}">Acerca de</a></li>
 				<li><a href="">Grupos</a></li>
 				<li><a href="">Perfil</a></li>
 				<li><a href="">Salir</a></li>
@@ -27,7 +27,7 @@
 		<div class="row ">
 			<article class="col s8 offset-s2">
 
-				<form action="" th:object="${contacto}" method="post" novalidate class="col s12">
+				<form action="" th:object="${contacto}" method="post" novalidate class="col s12" enctype="multipart/form-data">
 					<div class="input-field">
 						<i class="material-icons prefix">account_circle</i>
 						<input id="nombre" type="text" class="validate" required th:field="*{nombre}" th:errorclass="">
@@ -49,8 +49,17 @@
 						<input id="email" type="email" class="validate" required th:field="*{email}">
 						<label for="email">Correo Electrónico</label>
 					</div>
+					<div class="file-field input-field">
+						<div class="btn">
+							<i class="material-icons">cloud</i>
+							<input type="file">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text" name="file" id="file" required th:field="*{imagen}" placeholder="Selecciona una imagen">
+						</div>
+					</div>
 					<div class="row">
-						<a class="waves-effect waves-light btn red" href="/"><i
+						<a class="waves-effect waves-light btn red" href="/contactos"><i
 								class="material-icons left">cancel</i>Cancelar</a>
 						<button class="waves-effect waves-light btn blue" type="submit" name="action"><i
 								class="material-icons right">send</i>Agregar</button>
