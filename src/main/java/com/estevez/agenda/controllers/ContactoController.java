@@ -23,12 +23,17 @@ public class ContactoController {
 
 	@Autowired
 	private ContactoRepository contactoRepository;
+	
+	@GetMapping("/home")
+	String home() {
+		return "home";
+	}
 
 	@GetMapping("/contactos")
-	String index(Pageable pageable, Model model) {
+	String contactos(Pageable pageable, Model model) {
 		Page<Contacto> contactos = contactoRepository.findAll(pageable);
 		model.addAttribute("contactos", contactos);
-		return "index";
+		return "contactos";
 	}
 
 	@GetMapping("/nuevo")
