@@ -59,7 +59,10 @@
 				</a>
 			</li>
 
-			<li class="active blue" th:each="item : ${page.paginas}"><a th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero - 1})}" th:text="${item.numero}"></a></li>
+			<li th:class="${item.actual ? 'active blue' : 'waves-effect'}" th:each="item : ${page.paginas}">
+				<a th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero - 1})}" th:text="${item.numero}"></a>
+				<a th:if="${item.actual}" th:href="@{${page.url}(page=${item.numero - 1})}" th:text="${item.numero}"></a>
+			</li>
 			
 			<li class="waves-effect" th:class="${not page.hasNext ? 'waves-effect disabled' : 'waves-effect'}">
 				<a class="page-link" th:if="${page.hasNext}" th:href="@{${page.url}(page=${page.paginaActual})}">
