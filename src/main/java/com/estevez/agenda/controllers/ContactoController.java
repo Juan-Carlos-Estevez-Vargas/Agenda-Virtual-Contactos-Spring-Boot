@@ -1,7 +1,8 @@
 package com.estevez.agenda.controllers;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.estevez.agenda.models.Contacto;
-import com.estevez.agenda.repositories.ContactoRepository;
+import com.estevez.agenda.service.IContactoService;
 
 @Controller
 public class ContactoController {
 
 	@Autowired
-	private ContactoRepository contactoRepository;
+	private IContactoService contactoService;
 	
 	@GetMapping("/home")
 	String home() {
@@ -39,8 +40,12 @@ public class ContactoController {
 	@GetMapping("/contactos")
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
 		Pageable pageRequest = PageRequest.of(pagina, 4);
-		Page<Contacto> contactos = contactoRepository.findAll(pageRequest);
+		System.err.println(pageRequest.getPageSize());
+		Page<Contacto> contactos = contactoService.findAll(pageRequest);
+		List<Integer> paginas = IntStream.rangeClosed(1, pageRequest.getPageSize()).boxed().collect(Collectors.toList());
+		System.err.println(paginas);
 		model.addAttribute("contactos", contactos);
+		model.addAttribute("paginas", paginas);
 		return "contactos";
 	}
 
@@ -57,16 +62,14 @@ public class ContactoController {
 			model.addAttribute("contacto", contacto);
 			return "nuevo";
 		}
-		
-		contacto.setFechaRegistro(LocalDateTime.now());
 			
-		contactoRepository.save(contacto);
+		contactoService.save(contacto);
 		return "redirect:/contactos";
 	}
 
 	@GetMapping("/{id}/editar")
 	String editarContacto(@PathVariable Integer id, Model model) {
-		Optional<Contacto> contacto = contactoRepository.findById(id);
+		Contacto contacto = contactoService.findContactoById(id);
 		model.addAttribute("contacto", contacto);
 		return "nuevo";
 	}
@@ -80,21 +83,15 @@ public class ContactoController {
 			return "nuevo";
 		}
 		
-		Contacto contactoDB = contactoRepository.getById(id);
-		contactoDB.setNombre(contacto.getNombre());
-		contactoDB.setTelefono(contacto.getTelefono());
-		contactoDB.setEmail(contacto.getEmail());
-		contactoDB.setFechaNacimiento(contacto.getFechaNacimiento());
-		
-		contactoRepository.save(contactoDB);
+		contactoService.update(contacto);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha actualizado correctamente");
-		return "redirect:/";
+		return "redirect:/contactos";
 	}
 	
 	@PostMapping("/{id}/eliminar")
 	String eliminarContacto(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-		Contacto contactoDB = contactoRepository.getById(id);
-		contactoRepository.delete(contactoDB);
+		Contacto contactoDB = contactoService.findContactoById(id);
+		contactoService.deleteContacto(contactoDB);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
 		return "redirect:/contactos";
 	}

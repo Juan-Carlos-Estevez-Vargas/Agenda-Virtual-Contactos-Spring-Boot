@@ -49,9 +49,7 @@
 
 		<ul class="pagination center">
 			<li class="disabled" ><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-			<li class="active blue"><a th:href="@{/contactos?page=0}">1</a></li>
-			<li class="waves-effect"><a th:href="@{/contactos?page=1}">2</a></li>
-			<li class="waves-effect"><a th:href="@{/contactos?page=2}">3</a></li>
+			
 			<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 		</ul>
 	</div>
@@ -61,7 +59,6 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		function eliminarContacto(elemento) {
-
 			Swal.fire({
 				title: '¿Estas seguro de eliminar el contacto?',
 				text: "No podrás revertir esta acción!",
