@@ -1,9 +1,5 @@
 package com.estevez.agenda.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.estevez.agenda.models.Contacto;
 import com.estevez.agenda.service.IContactoService;
+import com.estevez.agenda.util.pagination.PageRender;
 
 @Controller
 public class ContactoController {
@@ -40,12 +37,10 @@ public class ContactoController {
 	@GetMapping("/contactos")
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
 		Pageable pageRequest = PageRequest.of(pagina, 4);
-		System.err.println(pageRequest.getPageSize());
 		Page<Contacto> contactos = contactoService.findAll(pageRequest);
-		List<Integer> paginas = IntStream.rangeClosed(1, pageRequest.getPageSize()).boxed().collect(Collectors.toList());
-		System.err.println(paginas);
+		PageRender<Contacto> pageRender = new PageRender<>("/contactos", contactos);
 		model.addAttribute("contactos", contactos);
-		model.addAttribute("paginas", paginas);
+		model.addAttribute("page", pageRender);
 		return "contactos";
 	}
 
