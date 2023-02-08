@@ -23,12 +23,12 @@ public class ContactoController {
 
 	@Autowired
 	private IContactoService contactoService;
-	
+
 	@GetMapping("/home")
 	String home() {
 		return "home";
 	}
-	
+
 	@GetMapping("/about")
 	String about() {
 		return "about";
@@ -57,7 +57,7 @@ public class ContactoController {
 			model.addAttribute("contacto", contacto);
 			return "nuevo";
 		}
-			
+
 		contactoService.save(contacto);
 		return "redirect:/contactos";
 	}
@@ -72,17 +72,17 @@ public class ContactoController {
 	@PostMapping("/{id}/editar")
 	String actualizarContacto(@PathVariable Integer id, @Validated Contacto contacto, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-		
+
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("contacto", contacto);
 			return "nuevo";
 		}
-		
+
 		contactoService.update(contacto);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha actualizado correctamente");
 		return "redirect:/contactos";
 	}
-	
+
 	@PostMapping("/{id}/eliminar")
 	String eliminarContacto(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		Contacto contactoDB = contactoService.findContactoById(id);

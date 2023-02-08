@@ -8,4 +8,5 @@ import com.estevez.agenda.models.Contacto;
 @Repository
 public interface ContactoRepository extends JpaRepository<Contacto, Integer> {
 
+	
 }
