@@ -28,8 +28,15 @@
 					<span class="title" th:text="*{nombre}"></span>
 					<p th:text="*{telefono}"></p>
 					<div class="secondary-content">
-						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons">edit</i></a>
-						<a onclick="eliminarContacto(this)"><i class="material-icons red-text">remove_circle</i></a>
+						<a data-target="modal" class="modal-trigger"><i class="material-icons green-text small">remove_red_eye</i></a>
+						<div id="modal" class="modal">
+							<div class="modal-content">Holi</div>
+							<div class="modal-footer">
+								<a hre="" class="btn modal-close">Cerrar</a>
+							</div>
+						</div>
+						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
+						<a onclick="eliminarContacto(this)"><i class="material-icons red-text small">delete</i></a>
 						<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
 					</div>
 				</li>
@@ -39,12 +46,19 @@
 		<header th:replace="layout/paginacion :: paginacion"></header>
 
 	</div>
-	
+
 	<footer th:replace="layout/footer :: footer"></footer>
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+		});
+
+	</script>
 	<script>
 		function eliminarContacto(elemento) {
 			Swal.fire({
