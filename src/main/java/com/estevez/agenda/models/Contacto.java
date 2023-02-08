@@ -30,7 +30,8 @@ public class Contacto {
 	@Column(name = "id_contacto")
 	private Integer id;
 	
-	@NotBlank(message = "El campo NOMBRE es obligatorio")
+	@NotBlank(message = "Este campo es obligatorio")
+	@Size(min = 3, max = 25, message = "El campo debe estar entre 3 y 25 caracteres")
 	private String nombre;
 	
 	@PastOrPresent(message = "La fecha de nacimiento NO debe estar en futuro")
@@ -38,10 +39,10 @@ public class Contacto {
 	@Column(name = "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
 	
-	@Size(max = 15, message = "El campo debe tener 15 caracteres como máximo")
+	@Size(min = 7, max = 12, message = "El campo debe tener entre 7 y 12 caracteres")
 	private String telefono;
 	
-	@Email(message = "Formato inválido	")
+	@Email(message = "Formato inválido")
 	//@Pattern(regexp = "")
 	private String email;
 	

@@ -20,24 +20,27 @@
 				<form action="" th:object="${contacto}" method="post" novalidate class="col s12" enctype="multipart/form-data">
 					<div class="input-field">
 						<i class="material-icons prefix">account_circle</i>
-						<input id="nombre" type="text" class="validate" required th:field="*{nombre}" th:errorclass="">
+						<input id="nombre" type="text" class="validate" required th:field="*{nombre}">
 						<label for="nombre">Nombre</label>
-						<!--<div th:errors="*{nombre}"></div>-->
+						<div th:errors="*{nombre}" style="color: red; font-size: 0.8em;"></div>
 					</div>
 					<div class="input-field">
 						<i class="material-icons prefix">date_range</i>
 						<input id="fecha_nacimiento" type="date" class="datepicker" th:field="*{fechaNacimiento}">
 						<label for="fecha_nacimiento">Fecha Nacimiento</label>
+						<div th:errors="*{fechaNacimiento}" style="color: red; font-size: 0.8em;"></div>
 					</div>
 					<div class="input-field">
 						<i class="material-icons prefix">call</i>
 						<input id="telefono" type="tel" class="validate" required th:field="*{telefono}">
 						<label for="telefono">Teléfono</label>
+						<div th:errors="*{telefono}" style="color: red; font-size: 0.8em;"></div>
 					</div>
 					<div class="input-field">
 						<i class="material-icons prefix">email</i>
 						<input id="email" type="email" class="validate" required th:field="*{email}">
 						<label for="email">Correo Electrónico</label>
+						<div th:errors="*{email}" style="color: red; font-size: 0.8em;"></div>
 					</div>
 					<div class="file-field input-field">
 						<div class="btn">
