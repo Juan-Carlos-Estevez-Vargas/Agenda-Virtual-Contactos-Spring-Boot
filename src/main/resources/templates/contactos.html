@@ -12,6 +12,8 @@
 <body>
 	<header th:replace="layout/navbar :: header"></header>
 
+	<div th:replace="layout/sidenav :: sidenav"></div>
+
 	<div class="container">
 
 		<div class="row">
@@ -28,7 +30,8 @@
 					<span class="title" th:text="*{nombre}"></span>
 					<p th:text="*{telefono}"></p>
 					<div class="secondary-content">
-						<a data-target="modal" class="modal-trigger"><i class="material-icons green-text small">remove_red_eye</i></a>
+						<a data-target="modal" class="modal-trigger"><i
+								class="material-icons green-text small">remove_red_eye</i></a>
 						<div id="modal" class="modal">
 							<div class="modal-content">
 								<h3 th:text="*{nombre}"></h3>
@@ -58,8 +61,10 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			var elems = document.querySelectorAll('.modal');
 			var instances = M.Modal.init(elems);
-		});
 
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+		});
 	</script>
 	<script>
 		function eliminarContacto(elemento) {

@@ -1,66 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Inicio</title>
-    <!-- Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <nav class="indigo accent-2">
-      <div class="nav-wrapper container">
-        <a href="@{/home}" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a th:href="@{/contactos}">Contactos</a></li>
-          <li><a th:href="@{(about)}">Acerca de</a></li>
-          <li><a href="">Grupos</a></li>
-          <li><a href="">Perfil</a></li>
-          <li><a href="">Salir</a></li>
-        </ul>
-      </div>
-    </nav>
-    
-    
-  
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
+<head>
+	<meta charset="UTF-8" />
+	<title>Inicio</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
 
-  <footer class="page-footer indigo accent-2">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Agendex</h5>
-          <p class="grey-text text-lighten-4">
-            Agendex es un sitio encargado de brindar una interface sólida e
-            intuitiva para administrar contactos, puedes hacerlo mediante grupos
-            o incluso enviandoles un email.
-          </p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Nuestras Redes</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">YouTube</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Tik Tok</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        © 2023 Agendex Company
-        <a class="grey-text text-lighten-4 right" href="#!">Mas Información</a>
-      </div>
-    </div>
-  </footer>
+<body>
+	<header th:replace="layout/navbar :: header"></header>
+
+	<div class="container center">
+		<h3 class="center">AgendeX</h3>
+		<div class="row" style="margin-top: 5%;">
+			<div class="col s12 m6">
+				<div class="card">
+					<div class="card-image">
+						<a class="btn-floating halfway-fab waves-effect waves-light red"><i
+								class="material-icons">add</i></a>
+					</div>
+					<div class="card-content">
+						<p>I am a very simple card. I am good at containing small bits of information. I am convenient
+							because I require little markup to use effectively.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m6">
+				<div class="card">
+					<div class="card-image">
+						<a class="btn-floating halfway-fab waves-effect waves-light red"><i
+								class="material-icons">add</i></a>
+					</div>
+					<div class="card-content">
+						<p>I am a very simple card. I am good at containing small bits of information. I am convenient
+							because I require little markup to use effectively.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col s6 offset-s3" style="margin-top: 3%;">
+				<div class="card">
+					<div class="card-image">
+						<a class="btn-floating halfway-fab waves-effect waves-light red"><i
+								class="material-icons">add</i></a>
+					
+					</div>
+					<div class="card-content">
+						<p>I am a very simple card. I am good at containing small bits of information. I am convenient
+							because I require little markup to use effectively.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="layout/footer :: footer"></footer>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
 </html>

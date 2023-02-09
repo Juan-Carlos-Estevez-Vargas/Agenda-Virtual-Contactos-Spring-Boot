@@ -10,54 +10,46 @@
 </head>
 
 <body>
-	<nav class="indigo accent-2">
-		<div class="nav-wrapper container">
-			<a href="@{/home}" class="brand-logo">Logo</a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a th:href="@{/contactos}">Contactos</a></li>
-				<li><a th:href="@{(about)}">Acerca de</a></li>
-				<li><a href="">Grupos</a></li>
-				<li><a href="">Perfil</a></li>
-				<li><a href="">Salir</a></li>
-			</ul>
-		</div>
-	</nav>
+	<header th:replace="layout/navbar :: header"></header>
 
 	<div class="container">
-		<h3>Bienvenido Usuario</h3>
+		<div class="col s12 m7">
+			<h3 class="header">Bienvenido a <span class="blue-text">AgendeX</span></h3>
+			<div class="card horizontal">
+				<div class="card-stacked">
+					<div class="card-content">
+						<h5>Administra tus contactos como todo un PRO.</h5> <br />
+						<blockquote>
+							Agrupa tu amigos, familiares o compañeros de trabajo y/o estudio en diferentes grupos
+							autogestionables; administra tu perfil y el de tus contactos
+						</blockquote>
+					</div>
+					<div class="card-action">
+						<a class="btn waves-effect waves-light blue" type="submit" name="action"  th:href="@{/contactos}">Contactos
+							<i class="material-icons right">touch_app</i>
+						</a>
+						<button class="btn waves-effect waves-light light-blue" type="submit" name="action" style="margin: 0 1.5%;">Grupos
+							<i class="material-icons right">group</i>
+						</button>
+						<button class="btn waves-effect waves-light cyan" type="submit" name="action">Perfil
+							<i class="material-icons right">spa</i>
+						</button>
+					</div>
+				</div>
+				<div class="card-image">
+					<img src="img/contactos.png" alt="" class="circle" width=220 height=220 style="margin: 8% 0 0 0;">
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+	<footer th:replace="layout/footer :: footer"></footer>
+
 </body>
 
-<footer class="page-footer indigo accent-2">
-	<div class="container">
-		<div class="row">
-			<div class="col l6 s12">
-				<h5 class="white-text">Agendex</h5>
-				<p class="grey-text text-lighten-4">Agendex es un sitio encargado de brindar una interface sólida e
-					intuitiva para administrar contactos, puedes hacerlo mediante grupos o incluso enviandoles un email.
-				</p>
-			</div>
-			<div class="col l4 offset-l2 s12">
-				<h5 class="white-text">Nuestras Redes</h5>
-				<ul>
-					<li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">YouTube</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Tik Tok</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="footer-copyright">
-		<div class="container">
-			© 2023 Agendex Company
-			<a class="grey-text text-lighten-4 right" href="#!">Mas Información</a>
-		</div>
-	</div>
-</footer>
+
 
 </html>

@@ -1,0 +1,34 @@
+<header th:fragment="header">
+	<nav class="indigo accent-2">
+		<div class="nav-wrapper container">
+			<a th:href="@{/home}" class="brand-logo">AgendeX</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a th:href="@{/contactos}">Contactos</a></li>
+				<li><a th:href="@{(about)}">Acerca de</a></li>
+				<li>
+					<a class="dropdown-trigger" href="#!" data-target="dropdown1">Grupos
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+					<ul id="dropdown1" class="dropdown-content">
+						<li><a href="#" class="blue-text"><i class="material-icons small">local_florist</i>Familia</a></li>
+						<li class="divider"></li>
+						<li><a href="#"><i class="material-icons small">child_care</i>Amigos</a></li>
+						<li class="divider"></li>
+						<li><a href="#" class="blue-text"><i class="material-icons small">business_center</i>Trabajo</a></li>
+						<li class="divider"></li>
+						<li><a href="#"><i class="material-icons small">insert_chart</i>Estudio</a></li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li><a href="">Perfil</a></li>
+				<li><a href="">Salir</a></li>
+			</ul>
+		</div>
+	</nav>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems);
+  });
+	</script>
+</header>
