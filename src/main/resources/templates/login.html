@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Login | AgendeX</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+	<header th:replace="layout/header-index :: header-index"></header>
+
+	<div class="container">
+		<h3 class="center-align">Login</h3>
+		<div class="row ">
+			<article class="col s8 offset-s3">
+
+				<form action="" method="post" novalidate class="col s12">
+					<div class="input-field col s9">
+						<i class="material-icons prefix">account_circle</i>
+						<input id="email" type="text" class="validate" required />
+						<label for="email">Usuario</label>
+					</div>
+					<div class="input-field col s9">
+						<i class="material-icons prefix">https</i>
+						<input id="email" type="password" class="validate" required />
+						<label for="email">Contraseña</label>
+					</div>
+					<div class="row col s9 center">
+						<button class="waves-effect waves-light btn blue" type="submit" name="action"><i
+								class="material-icons right">touch_app</i>Inicia Sesión</button>
+					</div>
+				</form>
+			</article>
+		</div>
+	</div>
+
+	<footer th:replace="layout/footer :: footer"></footer>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

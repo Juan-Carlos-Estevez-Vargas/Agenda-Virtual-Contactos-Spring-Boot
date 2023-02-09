@@ -33,6 +33,16 @@ public class ContactoController {
 	String about() {
 		return "about";
 	}
+	
+	@GetMapping("/registro")
+	String registro() {
+		return "registro";
+	}
+	
+	@GetMapping("/login")
+	String login() {
+		return "login";
+	}
 
 	@GetMapping("/contactos")
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
