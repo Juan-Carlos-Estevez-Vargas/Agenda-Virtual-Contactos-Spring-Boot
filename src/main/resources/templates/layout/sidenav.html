@@ -20,7 +20,16 @@
 		<div class="divider"></div>
 		<li><a class="subheader">Configuración</a></li>
 		<li><a class="waves-effect" href="#!"><i class="material-icons small">edit</i>Editar Perfil</a></li>
-		<li><a class="waves-effect" href="#!"><i class="material-icons small red-text">delete</i>Eliminar Cuenta</a></li>
+		<li><a class="waves-effect" href="#!"><i class="material-icons small red-text">delete</i>Eliminar Cuenta</a>
+		</li>
 	</ul>
-	<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+	<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons small">menu</i></a>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+		});
+	</script>
 </div>
