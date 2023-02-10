@@ -24,26 +24,6 @@ public class ContactoController {
 	@Autowired
 	private IContactoService contactoService;
 
-	@GetMapping("/home")
-	String home() {
-		return "home";
-	}
-
-	@GetMapping("/about")
-	String about() {
-		return "about";
-	}
-	
-	@GetMapping("/registro")
-	String registro() {
-		return "registro";
-	}
-	
-	@GetMapping("/login")
-	String login() {
-		return "login";
-	}
-
 	@GetMapping("/contactos")
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
 		Pageable pageRequest = PageRequest.of(pagina, 4);
