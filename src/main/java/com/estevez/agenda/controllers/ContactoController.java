@@ -47,7 +47,7 @@ public class ContactoController {
 			model.addAttribute("contacto", contacto);
 			return "nuevo";
 		}
-
+		
 		contactoService.save(contacto);
 		return "redirect:/contactos";
 	}

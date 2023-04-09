@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Grupos</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+	<header th:replace="layout/navbar :: header"></header>
+
+	<div th:replace="layout/sidenav :: sidenav"></div>
+
+	<div class="container">
+		<ul class="collection">
+			<div th:each="contacto : ${contactos}" th:object="${contacto}">
+				<li class="collection-item avatar">
+					<img src="img/contactos.png" alt="" class="circle">
+					<span class="title" th:text="*{nombre}"></span>
+					<p th:text="*{telefono}"></p>
+					<div class="secondary-content">
+						<a data-target="modal" class="modal-trigger"><i
+								class="material-icons green-text small">remove_red_eye</i></a>
+						<div id="modal" class="modal">
+							<div class="modal-content">
+								<h3 th:text="*{nombre}"></h3>
+							</div>
+							<div class="modal-footer">
+								<a hre="" class="btn modal-close">Cerrar</a>
+							</div>
+						</div>
+						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
+						<a onclick="eliminarContacto(this)"><i class="material-icons red-text small">delete</i></a>
+						<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
+					</div>
+				</li>
+			</div>
+		</ul>
+		
+		<header th:replace="layout/paginacion :: paginacion"></header>
+	</div>
+
+	<footer th:replace="layout/footer :: footer"></footer>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
