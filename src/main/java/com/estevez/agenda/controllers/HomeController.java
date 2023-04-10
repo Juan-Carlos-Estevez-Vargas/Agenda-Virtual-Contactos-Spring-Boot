@@ -16,7 +16,7 @@ public class HomeController {
 		return "about";
 	}
 
-	@GetMapping("/registro")
+	/*@GetMapping("/registro")
 	String registro() {
 		return "registro";
 	}
@@ -24,6 +24,6 @@ public class HomeController {
 	@GetMapping("/login")
 	String login() {
 		return "login";
-	}
+	}*/
 	
 }
