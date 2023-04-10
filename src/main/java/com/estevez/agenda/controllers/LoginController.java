@@ -17,11 +17,18 @@ import com.estevez.agenda.service.IUsuarioService;
 
 import jakarta.validation.Valid;
 
+/**
+ * Este "LoginController" aloja "asignaciones de solicitud" para la interfaz de
+ * usuario relacionada con "Inicio de sesión" y "Registro" (HTML + Thymeleaf).
+ * 
+ * @author Juan Carlos Estevez Vargas.
+ *
+ */
 @Controller
 public class LoginController {
-	
+
 	Logger log = LoggerFactory.getLogger(LoginController.class);
-	
+
 	@Autowired
 	private IUsuarioService usuarioService;
 

@@ -8,6 +8,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * " SecurityFilterChain " define una cadena de filtros que se puede comparar
+ * con una HttpServletRequest.
+ * 
+ * Como se menciona en la configuración a continuación, las URL que coinciden
+ * con "/usuario/**" son accesibles para los usuarios que tienen el rol
+ * "USUARIO" o "ADMIN" , mientras que las URL que coinciden con "/admin/**" solo
+ * son accesibles para usuarios que tengan el rol "ADMIN" .
+ * 
+ * Por otro lado, las URL que comienzan con "/registro/**" y "/login/**" son
+ * accesibles tanto para usuarios autenticados como no autenticados , o
+ * accesibles para todos.
+ * 
+ * @author Juan Carlos Estevez Vargas.
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity {
