@@ -1,0 +1,35 @@
+<div th:fragment="sidenav">
+	<ul id="slide-out" class="sidenav">
+		<li>
+			<div class="user-view">
+				<div class="background">
+					<img src="img/hands-about.jpg">
+				</div>
+				<a href="#user"><img class="circle" src="img/contactos.png"></a>
+				<a href="#name"><span class="white-text name">Usuario</span></a>
+				<a href="#email"><span class="white-text email">email usuario</span></a>
+			</div>
+		</li>
+		<li>
+			<a class="subheader">Grupos</a>
+		</li>
+		<li><a href="#"><i class="material-icons small">local_florist</i>Familia</a></li>
+		<li><a href="#"><i class="material-icons small">child_care</i>Amigos</a></li>
+		<li><a href="#"><i class="material-icons small">business_center</i>Trabajo</a></li>
+		<li><a href="#"><i class="material-icons small">insert_chart</i>Estudio</a></li>
+		<div class="divider"></div>
+		<li><a class="subheader">Configuración</a></li>
+		<li><a class="waves-effect" href="#!"><i class="material-icons small">edit</i>Editar Perfil</a></li>
+		<li><a class="waves-effect" href="#!"><i class="material-icons small red-text">delete</i>Eliminar Cuenta</a>
+		</li>
+	</ul>
+	<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons small">menu</i></a>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+		});
+	</script>
+</div>

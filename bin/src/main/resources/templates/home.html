@@ -18,6 +18,7 @@
 			<div class="card horizontal">
 				<div class="card-stacked">
 					<div class="card-content">
+						<h6>¡Hola <span class="blue-text" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></span>!</h6>
 						<h5>Administra tus contactos como todo un PRO.</h5> <br />
 						<blockquote>
 							Agrupa tu amigos, familiares o compañeros de trabajo y/o estudio en diferentes grupos
@@ -25,7 +26,7 @@
 						</blockquote>
 					</div>
 					<div class="card-action">
-						<a class="btn waves-effect waves-light blue" type="submit" name="action"  th:href="@{/contactos}">Contactos
+						<a class="btn waves-effect waves-light blue" type="submit" name="action"  th:href="@{/usuario/contactos}">Contactos
 							<i class="material-icons right">touch_app</i>
 						</a>
 						<button class="btn waves-effect waves-light light-blue" type="submit" name="action" style="margin: 0 1.5%;">Grupos
@@ -37,7 +38,7 @@
 					</div>
 				</div>
 				<div class="card-image">
-					<img src="img/contactos.png" alt="" class="circle" width=220 height=220 style="margin: 8% 0 0 0;">
+					<img th:src="@{../static/img/contactos.png}" alt="" class="circle" width=220 height=220 style="margin: 8% 0 0 0;">
 				</div>
 			</div>
 		</div>

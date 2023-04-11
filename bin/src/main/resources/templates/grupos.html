@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Inicio</title>
+	<title>Grupos</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,14 +15,6 @@
 	<div th:replace="layout/sidenav :: sidenav"></div>
 
 	<div class="container">
-
-		<div class="row" style="margin-top: -4%;">
-			<h3 class="col s8">Contactos</h3>
-			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/usuario/nuevo">
-				<i class="material-icons left">add</i>Registrar Contacto
-			</a>
-		</div>
-
 		<ul class="collection">
 			<div th:each="contacto : ${contactos}" th:object="${contacto}">
 				<li class="collection-item avatar">
@@ -47,9 +39,8 @@
 				</li>
 			</div>
 		</ul>
-
+		
 		<header th:replace="layout/paginacion :: paginacion"></header>
-
 	</div>
 
 	<footer th:replace="layout/footer :: footer"></footer>
@@ -57,35 +48,6 @@
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var elems = document.querySelectorAll('.modal');
-			var instances = M.Modal.init(elems);
-		});
-	</script>
-	<script>
-		function eliminarContacto(elemento) {
-			Swal.fire({
-				title: '¿Estas seguro de eliminar el contacto?',
-				text: "No podrás revertir esta acción!",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Si, eliminalo!'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					Swal.fire(
-						'Eliminado!',
-						'Tu contacto ha sido eliminado.',
-						'success'
-					).then((result) => {
-						elemento.nextElementSibling.submit();
-					})
-				}
-			})
-		}
-	</script>
 </body>
 
 </html>

@@ -3,42 +3,50 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Inicio</title>
+	<title>AgendeX</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-	login y registro
-</body>
+	<header th:replace="layout/header-index :: header-index"></header>
+	
+	<div class="row container">
+		<div class="col s12 m10 offset-m1">
+			<h2 class="header center indigo-text">AgendeX</h2>
+			<p class="grey-text text-darken-3 lighten-3 center">Agendex es un sitio web de gestión de contactos, interactivo, intuitivo y divertido, en el cual podrás disfrutar d euna experiencia acorde a tu personnalidad.</p>
 
-<footer class="page-footer indigo accent-2">
-	<div class="container">
-		<div class="row">
-			<div class="col l6 s12">
-				<h5 class="white-text">Agendex</h5>
-				<p class="grey-text text-lighten-4">Agendex es un sitio encargado de brindar una interface sólida e
-					intuitiva para administrar contactos, puedes hacerlo mediante grupos o incluso enviandoles un email.
-				</p>
+			<div class="card horizontal">
+				<div class="card-stacked">
+					<div class="card-content">
+						<blockquote>
+							Agrupa tu amigos, familiares o compañeros de trabajo y/o estudio en diferentes grupos
+							autogestionables; administra tu perfil y el de tus contactos
+						</blockquote>
+						<blockquote>
+							Agrupa tu amigos, familiares o compañeros de trabajo y/o estudio en diferentes grupos
+							autogestionables; administra tu perfil y el de tus contactos
+						</blockquote>
+					</div>
+					<div class="card-action center">
+						<a class="btn waves-effect waves-light blue" type="submit" name="action"  th:href="@{/login}">Inicia Sesión
+							<i class="material-icons right">touch_app</i>
+						</a>
+						<a class="btn waves-effect waves-light light-blue" type="submit" name="action"  th:href="@{/registro}">Registrate
+							<i class="material-icons right">touch_app</i>
+						</a>
+					</div>
+				</div>
+				<div class="card-image">
+					<img src="img/contactos-home.png" alt="" class="circle" width=210 height=210 style="margin: 8% 0 0 0;">
+				</div>
 			</div>
-			<div class="col l4 offset-l2 s12">
-				<h5 class="white-text">Nuestras Redes</h5>
-				<ul>
-					<li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">YouTube</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Tik Tok</a></li>
-				</ul>
-			</div>
+
 		</div>
 	</div>
-	<div class="footer-copyright">
-		<div class="container">
-			© 2023 Agendex Company
-			<a class="grey-text text-lighten-4 right" href="#!">Mas Información</a>
-		</div>
-	</div>
-</footer>
+
+	<footer th:replace="layout/footer :: footer"></footer>
+</body>
 
 </html>
