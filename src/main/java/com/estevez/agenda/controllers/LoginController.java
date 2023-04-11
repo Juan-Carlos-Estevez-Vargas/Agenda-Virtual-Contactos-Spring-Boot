@@ -1,5 +1,7 @@
 package com.estevez.agenda.controllers;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,7 @@ public class LoginController {
 			return "/registro";
 		}
 
+		usuarioDTO.setFechaRegistro(new Date());
 		usuarioService.saveUsuario(usuarioDTO);
 		return "redirect:/home";
 	}

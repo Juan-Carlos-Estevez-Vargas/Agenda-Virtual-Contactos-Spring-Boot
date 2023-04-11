@@ -1,5 +1,7 @@
 package com.estevez.agenda.dto;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -42,6 +44,10 @@ public class UsuarioDTO {
 	    @NotEmpty(message = "Por favor ingresa una contraseña válida.")
 		@Size(min = 4, max = 50, message="La contraseña debe estar entre 4 y 100 caracteres")
 	    private String password;
+	    
+	    private Date fechaRegistro;
+	    
+	    private Date fechaActualizacion;
 	}
 	
 

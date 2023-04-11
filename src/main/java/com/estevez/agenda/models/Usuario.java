@@ -1,6 +1,7 @@
 package com.estevez.agenda.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -41,6 +42,12 @@ public class Usuario {
 
 	@Column(nullable = false, unique = false)
 	private String imagen;
+	
+	@Column(nullable = false, unique = false)
+	private Date fechaRegistro;
+	
+	@Column(nullable = false, unique = false)
+	private Date fechaActualizacion;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "usuario_roles", joinColumns = {
@@ -49,7 +56,7 @@ public class Usuario {
 	private List<Rol> roles = new ArrayList<>();
 
 	public Usuario(String nombre, String apellido, String telefono, String usuario, String password, String email,
-			String imagen, List<Rol> roles) {
+			String imagen, Date fechaRegistro, List<Rol> roles) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
@@ -57,6 +64,7 @@ public class Usuario {
 		this.password = password;
 		this.email = email;
 		this.imagen = imagen != null ? imagen : "";
+		this.fechaRegistro = fechaRegistro;
 		this.roles = roles;
 	}
 
