@@ -2,7 +2,6 @@ package com.estevez.agenda.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +26,11 @@ public class UsuarioDTO {
 		
 		@NotEmpty(message = "Por favor ingresa un teléfono válido.")
 		@Size(min = 7, max = 20, message="El teléfono debe estar entre 7 y 20 caracteres")
-		@Pattern(regexp = "[6][0-9]{8}", message = "Formato no válido")
 		private String telefono;
 		
 		@NotEmpty(message = "Por favor ingresa un nombre de usuario válido.")
 		@Size(min = 3, max = 50, message="El nombre de usuario debe estar entre 3 y 50 caracteres")
-		private String usuario;
+		private String username;
 		
 		private String imagen;
 

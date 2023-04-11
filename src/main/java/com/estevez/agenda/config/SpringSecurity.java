@@ -36,13 +36,21 @@ public class SpringSecurity {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				.authorizeHttpRequests((requests) -> requests.requestMatchers("/index/**").permitAll()
-						.requestMatchers("/registro/**").permitAll().requestMatchers("/login/**").permitAll()
-						.requestMatchers("/usuario/**").hasAnyRole("USER", "ADMIN").requestMatchers("/admin/**")
-						.hasAnyRole("ADMIN").anyRequest().authenticated())
-				.formLogin((form) -> form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/home/")
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/registro/**").permitAll()
+						.requestMatchers("/login/**").permitAll()
+						.requestMatchers("/usuario/**").hasAnyRole("USER", "ADMIN")
+						.requestMatchers("/admin/**").hasAnyRole("ADMIN")
+						.anyRequest().authenticated())
+				.formLogin((form) -> form
+						.loginPage("/login")
+						.loginProcessingUrl("/login")
+						.defaultSuccessUrl("/user/")
 						.permitAll())
-				.logout((logout) -> logout.permitAll()).exceptionHandling().accessDeniedPage("/acceso-denegado");
+				.logout((logout) -> logout
+						.permitAll())
+						.exceptionHandling()
+						.accessDeniedPage("/acceso-denegado");
 		return http.build();
 	}
 

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.estevez.agenda.models.Usuario;
 
 @Repository
-public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
-	Usuario findByUsuario(String usuario);
+	Usuario findByUsername(String usuario);
 
 }

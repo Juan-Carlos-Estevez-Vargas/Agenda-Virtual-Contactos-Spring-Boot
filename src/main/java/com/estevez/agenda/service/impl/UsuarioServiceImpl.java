@@ -34,13 +34,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
             rol = rolRepository.save(new Rol(TbConstants.Roles.USER));
 
         Usuario usuario = new Usuario(usuarioDTO.getNombre(), usuarioDTO.getApellido(),
-        		usuarioDTO.getTelefono(), usuarioDTO.getUsuario(), passwordEncoder.encode(usuarioDTO.getPassword()),
+        		usuarioDTO.getTelefono(), usuarioDTO.getUsername(), passwordEncoder.encode(usuarioDTO.getPassword()),
         		usuarioDTO.getEmail(), usuarioDTO.getImagen(), Arrays.asList(rol));
         usuarioRepository.save(usuario);
     }
 
     @Override
     public Usuario findUserByUsuario(String usuario) {
-        return usuarioRepository.findByUsuario(usuario);
+        return usuarioRepository.findByUsername(usuario);
     }
 }

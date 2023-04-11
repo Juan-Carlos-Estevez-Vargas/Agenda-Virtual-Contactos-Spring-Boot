@@ -47,7 +47,7 @@ public class LoginController {
 	@PostMapping("/registro")
 	public String registration(@Valid @ModelAttribute("usuario") UsuarioDTO usuarioDTO, BindingResult result,
 			Model model) {
-		Usuario existingUser = usuarioService.findUserByUsuario(usuarioDTO.getUsuario());
+		Usuario existingUser = usuarioService.findUserByUsuario(usuarioDTO.getUsername());
 		log.info("Informacion " + usuarioDTO.getNombre());
 
 		if (existingUser != null)
@@ -59,6 +59,6 @@ public class LoginController {
 		}
 
 		usuarioService.saveUsuario(usuarioDTO);
-		return "redirect:/index";
+		return "redirect:/home";
 	}
 }

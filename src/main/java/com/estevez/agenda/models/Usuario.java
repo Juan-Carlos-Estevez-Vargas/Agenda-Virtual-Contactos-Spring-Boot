@@ -19,7 +19,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUsuario;
+	private Integer idUsuario;
 
 	@Column(nullable = false)
 	private String nombre;
@@ -31,7 +31,7 @@ public class Usuario {
 	private String telefono;
 
 	@Column(nullable = false, unique = true)
-	private String usuario;
+	private String username;
 
 	@Column(nullable = false, unique = false)
 	private String password;
@@ -53,7 +53,7 @@ public class Usuario {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
-		this.usuario = usuario;
+		this.username = usuario;
 		this.password = password;
 		this.email = email;
 		this.imagen = imagen != null ? imagen : "";
