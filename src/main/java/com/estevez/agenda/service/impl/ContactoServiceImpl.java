@@ -8,15 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.estevez.agenda.dto.ContactoDTO;
 import com.estevez.agenda.models.Contacto;
-import com.estevez.agenda.repositories.ContactoRepository;
+import com.estevez.agenda.repositories.IContactoRepository;
 import com.estevez.agenda.service.IContactoService;
 
 @Service
 public class ContactoServiceImpl implements IContactoService {
 
 	@Autowired
-	private ContactoRepository contactoRepository;
+	private IContactoRepository contactoRepository;
 	
 	@Override
 	public Page<Contacto> findAll(Pageable pageable) {
