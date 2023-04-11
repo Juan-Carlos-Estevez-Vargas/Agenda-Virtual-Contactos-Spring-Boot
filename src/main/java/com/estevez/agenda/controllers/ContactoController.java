@@ -20,7 +20,7 @@ import com.estevez.agenda.service.IContactoService;
 import com.estevez.agenda.util.pagination.PageRender;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 public class ContactoController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class ContactoController {
 	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
 		Pageable pageRequest = PageRequest.of(pagina, 4);
 		Page<Contacto> contactos = contactoService.findAll(pageRequest);
-		PageRender<Contacto> pageRender = new PageRender<>("/contactos", contactos);
+		PageRender<Contacto> pageRender = new PageRender<>("/usuario/contactos", contactos);
 		model.addAttribute("contactos", contactos);
 		model.addAttribute("page", pageRender);
 		return "contactos";
@@ -51,7 +51,7 @@ public class ContactoController {
 		}
 		
 		contactoService.save(contacto);
-		return "redirect:/contactos";
+		return "redirect:/usuario/contactos";
 	}
 
 	@GetMapping("/{id}/editar")
@@ -72,7 +72,7 @@ public class ContactoController {
 
 		contactoService.update(contacto);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha actualizado correctamente");
-		return "redirect:/contactos";
+		return "redirect:/usuario/contactos";
 	}
 
 	@PostMapping("/{id}/eliminar")
@@ -80,7 +80,7 @@ public class ContactoController {
 		Contacto contactoDB = contactoService.findContactoById(id);
 		contactoService.deleteContacto(contactoDB);
 		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
-		return "redirect:/contactos";
+		return "redirect:/usuario/contactos";
 	}
 
 }

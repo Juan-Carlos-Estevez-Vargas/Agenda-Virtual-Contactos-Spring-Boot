@@ -18,7 +18,7 @@
 
 		<div class="row" style="margin-top: -4%;">
 			<h3 class="col s8">Contactos</h3>
-			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/nuevo">
+			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/usuario/nuevo">
 				<i class="material-icons left">add</i>Registrar Contacto
 			</a>
 		</div>
@@ -40,9 +40,9 @@
 								<a hre="" class="btn modal-close">Cerrar</a>
 							</div>
 						</div>
-						<a th:href="@{/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
+						<a th:href="@{/usuario/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
 						<a onclick="eliminarContacto(this)"><i class="material-icons red-text small">delete</i></a>
-						<form th:action="@{/{id}/eliminar(id=*{id})}" method="POST"></form>
+						<form th:action="@{/usuario/{id}/eliminar(id=*{id})}" method="POST"></form>
 					</div>
 				</li>
 			</div>

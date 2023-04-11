@@ -17,15 +17,5 @@ public class HomeController {
 	String about() {
 		return "about";
 	}
-
-	/*@GetMapping("/registro")
-	String registro() {
-		return "registro";
-	}
-
-	@GetMapping("/login")
-	String login() {
-		return "login";
-	}*/
 	
 }

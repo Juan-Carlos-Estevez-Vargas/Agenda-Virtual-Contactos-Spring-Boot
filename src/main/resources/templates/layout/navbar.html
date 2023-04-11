@@ -1,10 +1,10 @@
 <header th:fragment="header">
 	<nav class="indigo accent-2">
 		<div class="nav-wrapper container">
-			<a th:href="@{/home}" class="brand-logo">AgendeX</a>
+			<a th:href="@{/usuario/home}" class="brand-logo">AgendeX</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a th:href="@{/contactos}">Contactos</a></li>
-				<li><a th:href="@{/about}">Acerca de</a></li>
+				<li><a th:href="@{/usuario/contactos}">Contactos</a></li>
+				<li><a th:href="@{/usuario/about}">Acerca de</a></li>
 				<li>
 					<a class="dropdown-trigger" href="#!" data-target="dropdown1">Grupos
 						<i class="material-icons right">arrow_drop_down</i>
@@ -21,7 +21,7 @@
 					</ul>
 				</li>
 				<li><a href="">Perfil</a></li>
-				<li><a href="">Salir</a></li>
+				<li><a th:href="@{/logout}">Salir</a></li>
 			</ul>
 		</div>
 	</nav>
