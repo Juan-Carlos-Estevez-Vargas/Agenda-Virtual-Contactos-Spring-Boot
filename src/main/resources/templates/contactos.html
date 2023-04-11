@@ -26,7 +26,7 @@
 		<ul class="collection">
 			<div th:each="contacto : ${contactos}" th:object="${contacto}">
 				<li class="collection-item avatar">
-					<img src="img/contactos.png" alt="" class="circle">
+					<img src="#" th:src="@{/images/contactos.png}" alt="" class="circle">
 					<span class="title" th:text="*{nombre}"></span>
 					<p th:text="*{telefono}"></p>
 					<div class="secondary-content">

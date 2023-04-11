@@ -62,6 +62,6 @@ public class LoginController {
 
 		usuarioDTO.setFechaRegistro(new Date());
 		usuarioService.saveUsuario(usuarioDTO);
-		return "redirect:/home";
+		return "redirect:/usuario/home";
 	}
 }
