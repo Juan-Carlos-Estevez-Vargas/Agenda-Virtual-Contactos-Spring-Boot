@@ -19,7 +19,7 @@
 
 				<form role="form" th:action="@{/login}" method="post" novalidate class="col s12">
 					<div th:if="${param.error}">
-						<div>Usuario o contraseña incorrectos</div>
+						<div class="row col s9 center red-text text-accent-4">Usuario o contraseña incorrectos</div>
 					</div>
 					<div class="input-field col s9">
 						<i class="material-icons prefix">account_circle</i>
