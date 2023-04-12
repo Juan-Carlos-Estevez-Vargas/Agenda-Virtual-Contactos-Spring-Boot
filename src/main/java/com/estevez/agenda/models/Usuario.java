@@ -54,6 +54,9 @@ public class Usuario {
 			@JoinColumn(name = "usuario_id", referencedColumnName = "idUsuario") }, inverseJoinColumns = {
 					@JoinColumn(name = "rol_id", referencedColumnName = "id") })
 	private List<Rol> roles = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contacto> contactos = new ArrayList<>();
 
 	public Usuario(String nombre, String apellido, String telefono, String usuario, String password, String email,
 			String imagen, Date fechaRegistro, List<Rol> roles) {
