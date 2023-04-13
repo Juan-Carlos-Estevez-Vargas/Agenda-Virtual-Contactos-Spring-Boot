@@ -14,6 +14,7 @@ public interface IUsuarioService {
 
 	/**
 	 * Busca un usuario por su username.
+	 * 
 	 * @param usuario
 	 * @return usuario encontrado o null.
 	 */

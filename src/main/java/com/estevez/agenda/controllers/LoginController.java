@@ -34,11 +34,22 @@ public class LoginController {
 	@Autowired
 	private IUsuarioService usuarioService;
 
+	/**
+	 * Login de la aplicación.
+	 * 
+	 * @return página HTML para hacer el inicio de sesión.
+	 */
 	@RequestMapping("/login")
 	public String loginForm() {
 		return "login";
 	}
 
+	/**
+	 * Página de registro de la aplicación.
+	 * 
+	 * @param model
+	 * @return template HTML con el formulario de registro.
+	 */
 	@GetMapping("/registro")
 	public String registrationForm(Model model) {
 		UsuarioDTO usuario = new UsuarioDTO();
@@ -46,6 +57,16 @@ public class LoginController {
 		return "registro";
 	}
 
+	/**
+	 * Procesa el formulario de registro, haciendo validaciones y persistiendo los
+	 * datos en el sistema.
+	 * 
+	 * @param usuarioDTO entidad a procesar.
+	 * @param result     errores en el procesado de los campos.
+	 * @param model
+	 * @return redirección a la página de login en caso de éxito o redirecciona a la
+	 *         página del registro en caso de errore.
+	 */
 	@PostMapping("/registro")
 	public String registration(@Valid @ModelAttribute("usuario") UsuarioDTO usuarioDTO, BindingResult result,
 			Model model) {
@@ -62,6 +83,6 @@ public class LoginController {
 
 		usuarioDTO.setFechaRegistro(new Date());
 		usuarioService.saveUsuario(usuarioDTO);
-		return "redirect:/usuario/about";
+		return "redirect:/login";
 	}
 }

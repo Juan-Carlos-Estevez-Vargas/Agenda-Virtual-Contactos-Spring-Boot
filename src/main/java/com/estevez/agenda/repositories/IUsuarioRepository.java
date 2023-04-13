@@ -7,7 +7,13 @@ import com.estevez.agenda.models.Usuario;
 
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
-	
-	Usuario findByUsername(String usuario);
+
+	/**
+	 * Obtiene un usuario por su username.
+	 * 
+	 * @param username del usuario a obtener.
+	 * @return usuario encontrado.
+	 */
+	Usuario findByUsername(String username);
 
 }
