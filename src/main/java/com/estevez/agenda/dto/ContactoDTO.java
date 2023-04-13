@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.estevez.agenda.models.Usuario;
+
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -42,5 +44,7 @@ public class ContactoDTO {
 	private LocalDateTime fechaRegistro;
 	
 	private String imagen;
+	
+	private Usuario usuario;
 
 }

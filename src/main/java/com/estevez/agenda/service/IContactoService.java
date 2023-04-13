@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.estevez.agenda.dto.ContactoDTO;
 import com.estevez.agenda.models.Contacto;
+import com.estevez.agenda.models.Usuario;
 
 public interface IContactoService {
 
@@ -21,5 +22,7 @@ public interface IContactoService {
 	Contacto findContactoById(Integer id);
 
 	void deleteContacto(Contacto contacto);
+
+	Page<Contacto> findAllByUsuario(Usuario usuario, Pageable pageRequest);
 
 }

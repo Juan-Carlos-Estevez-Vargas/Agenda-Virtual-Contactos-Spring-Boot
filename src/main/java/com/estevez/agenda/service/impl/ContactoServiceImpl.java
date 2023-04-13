@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.estevez.agenda.dto.ContactoDTO;
 import com.estevez.agenda.models.Contacto;
+import com.estevez.agenda.models.Usuario;
 import com.estevez.agenda.repositories.IContactoRepository;
 import com.estevez.agenda.service.IContactoService;
 
@@ -56,6 +57,9 @@ public class ContactoServiceImpl implements IContactoService {
 		contactoRepository.delete(contacto);
 	}
 
-
+	@Override
+	public Page<Contacto> findAllByUsuario(Usuario usuario, Pageable pageRequest) {
+		return contactoRepository.findAllByUsuario(usuario ,pageRequest);
+	}
 
 }

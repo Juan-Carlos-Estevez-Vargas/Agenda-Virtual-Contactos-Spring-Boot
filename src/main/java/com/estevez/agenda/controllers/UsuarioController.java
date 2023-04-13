@@ -1,9 +1,14 @@
 package com.estevez.agenda.controllers;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -12,34 +17,59 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.estevez.agenda.dto.UsuarioDTO;
 import com.estevez.agenda.models.Contacto;
 import com.estevez.agenda.models.Usuario;
 import com.estevez.agenda.repositories.IUsuarioRepository;
 import com.estevez.agenda.service.IContactoService;
 import com.estevez.agenda.util.pagination.PageRender;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
+	
+	Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
 	@Autowired
 	private IContactoService contactoService;
+	
+	/*@GetMapping("/contactos")
+	String contactos(Model model, Authentication authentication, @RequestParam(name = "page", defaultValue = "0") int pagina) {
+	    Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
+	    List<Contacto> contactosUsuario = usuario.getContactos();
+
+	    Pageable pageRequest = PageRequest.of(pagina, 4);
+	    Page<Contacto> contactos = contactoService.findAll(pageRequest);   
+
+	    PageRender<Contacto> pageRender = new PageRender<>("/usuario/contactos", contactos);
+	    model.addAttribute("contactos", contactos);
+	    model.addAttribute("page", pageRender);
+	    return "contactos";
+	}*/
 
 	@GetMapping("/contactos")
-	String contactos(Model model, @RequestParam(name = "page", defaultValue = "0") int pagina) {
-		Pageable pageRequest = PageRequest.of(pagina, 4);
-		Page<Contacto> contactos = contactoService.findAll(pageRequest);
-		PageRender<Contacto> pageRender = new PageRender<>("/usuario/contactos", contactos);
-		model.addAttribute("contactos", contactos);
-		model.addAttribute("page", pageRender);
-		return "contactos";
+	public String contactos(Model model, Authentication authentication, @RequestParam(name = "page", defaultValue = "0") int pagina) {
+	    Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
+	    List<Contacto> contactosUsuario = usuario.getContactos();
+
+	    Pageable pageRequest = PageRequest.of(pagina, 4);
+	    Page<Contacto> contactos = contactoService.findAllByUsuario(usuario, pageRequest);   
+
+	    PageRender<Contacto> pageRender = new PageRender<>("/usuario/contactos", contactos);
+	    model.addAttribute("contactos", contactos);
+	    model.addAttribute("page", pageRender);
+	    return "contactos";
 	}
+
 
 	@GetMapping("/nuevo")
 	String nuevoContacto(Model model) {
@@ -48,17 +78,16 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/nuevo")
-	String crearContacto(@Validated Contacto contacto, Authentication authentication, BindingResult bindingResult,
+	String crearContacto(@Valid @ModelAttribute("contacto") Contacto contacto, Authentication authentication, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("contacto", contacto);
-			return "nuevo";
+			return "/nuevo";
 		}
 		
 		Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
 		contacto.setUsuario(usuario);
 		usuario.getContactos().add(contacto);
-		//usuarioRepository.save(usuario);
 		
 		contactoService.save(contacto);
 		return "redirect:/usuario/contactos";
