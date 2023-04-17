@@ -227,8 +227,21 @@ public class UsuarioController {
 		} else {
 			model.addAttribute("prueba", username);
 		}
-
 		return "perfil";
+	}
+	
+	/**
+	 * EndPoint encargado de eliminar un perfil en la aplicación.
+	 * @param id del perfil a eliminar
+	 * @return redirección al login.
+	 */
+	@PostMapping("/perfil/{id}/eliminar")
+	String eliminarPerfil(@PathVariable Integer id) {
+		Usuario usuarioDB = usuarioRepository.findById(id).get();
+		if (usuarioDB != null) {
+			usuarioRepository.delete(usuarioDB);
+		}
+		return "redirect:/login";
 	}
 
 }
