@@ -73,23 +73,25 @@
 
 										<div class="modal-footer">
 											<a href="#!" onclick="M.toast({html: 'Pedido Cancelado'})"
-												class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+												class="modal-close waves-effect waves-green btn-flat red white-text">Cancelar</a>
 											<a class="btn" th:href="@{/usuario/perfil/{id}/editar}"><i
 													class="material-icons small">edit</i></a>
 										</div>
 									</div>
+								</div>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<hr />
+		<div class="input-field">
+			<textarea id="myTextarea" class="materialize-textarea"></textarea>
+			<label for="myTextarea">Escribe algo...</label>
+		</div>
 	</div>
-	<hr />
-	<div class="input-field">
-		<textarea id="myTextarea" class="materialize-textarea"></textarea>
-		<label for="myTextarea">Escribe algo...</label>
-	</div>
+
 
 	<footer th:replace="layout/footer :: footer"></footer>
 

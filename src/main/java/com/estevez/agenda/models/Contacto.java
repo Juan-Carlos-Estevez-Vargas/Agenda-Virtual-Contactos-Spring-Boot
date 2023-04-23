@@ -34,7 +34,7 @@ public class Contacto {
 	private Integer id;
 	
 	@NotBlank(message = "Este campo es obligatorio")
-	@Size(min = 3, max = 25, message = "El campo debe estar entre 3 y 25 caracteres")
+	@Size(min = 3, max = 50, message = "El campo debe estar entre 3 y 50 caracteres")
 	private String nombre;
 	
 	@PastOrPresent(message = "La fecha de nacimiento NO debe estar en futuro")
