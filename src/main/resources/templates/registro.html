@@ -1,87 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro | AgendeX</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Registro | AgendeX</title>
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  <body>
+    <header th:replace="layout/header-index :: header-index"></header>
 
-<body>
-	<header th:replace="layout/header-index :: header-index"></header>
+    <div class="container">
+      <h3 class="center-align">Registro</h3>
+      <div class="row">
+        <article class="col s10 offset-s1">
+          <form
+            th:action="@{/registro}"
+            th:object="${usuario}"
+            method="post"
+            role="form"
+            novalidate
+            class="col s12"
+          >
+            <div class="input-field col s6">
+              <i class="material-icons prefix">sentiment_very_satisfied</i>
+              <input
+                id="nombre"
+                name="nombre"
+                type="text"
+                class="validate"
+                required
+              />
+              <label for="nombre">Nombre</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{nombre}"
+                th:if="${#fields.hasErrors('nombre')}"
+              ></p>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">format_color_text</i>
+              <input
+                id="apellido"
+                name="apellido"
+                type="text"
+                class="validate"
+                required
+              />
+              <label for="apellido">Apellido</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{apellido}"
+                th:if="${#fields.hasErrors('apellido')}"
+              ></p>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">call</i>
+              <input
+                id="telefono"
+                name="telefono"
+                type="tel"
+                class="validate"
+                required
+              />
+              <label for="telefono">Teléfono</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{telefono}"
+                th:if="${#fields.hasErrors('telefono')}"
+              ></p>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">account_circle</i>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                class="validate"
+                required
+              />
+              <label for="username">Usuario</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{username}"
+                th:if="${#fields.hasErrors('username')}"
+              ></p>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">https</i>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                class="validate"
+                required
+              />
+              <label for="password">Contraseña</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{password}"
+                th:if="${#fields.hasErrors('password')}"
+              ></p>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">email</i>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                class="validate"
+                required
+              />
+              <label for="email">Correo Electrónico</label>
+              <p
+                class="red-text text-accent-4"
+                th:errors="*{email}"
+                th:if="${#fields.hasErrors('email')}"
+              ></p>
+            </div>
+            <div class="file-field input-field col s12">
+              <div class="btn">
+                <i class="material-icons">cloud</i>
+                <input type="file" />
+              </div>
+              <div class="file-path-wrapper">
+                <input
+                  class="file-path validate"
+                  type="text"
+                  name="file"
+                  id="file"
+                  required
+                  placeholder="Selecciona una imagen"
+                />
+              </div>
+            </div>
+            <div class="row center">
+              <a class="waves-effect waves-light btn red" href="/"
+                ><i class="material-icons left">cancel</i>Cancelar</a
+              >
+              <button
+                class="waves-effect waves-light btn"
+                type="reset"
+                name="action"
+              >
+                Limpiar
+              </button>
+              <button
+                class="waves-effect waves-light btn blue"
+                type="submit"
+                name="action"
+              >
+                <i class="material-icons right">control_point</i>Agregar
+              </button>
+            </div>
+          </form>
+          <p>¿Ya tienes una cuenta? <a th:href="@{/login}">Inicia Sesión</a></p>
+        </article>
+      </div>
+    </div>
 
-	<div class="container">
-		<h3 class="center-align">Registro</h3>
-		<div class="row ">
-			<article class="col s10 offset-s1">
-				<form th:action="@{/registro}" th:object="${usuario}" method="post" role="form" novalidate class="col s12">
-					<div class="input-field col s6">
-						<i class="material-icons prefix">sentiment_very_satisfied</i>
-						<input id="nombre" name="nombre" type="text" class="validate" required />
-						<label for="nombre">Nombre</label>
-						<p class="red-text text-accent-4" th:errors="*{nombre}" th:if="${#fields.hasErrors('nombre')}"></p>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">format_color_text</i>
-						<input id="apellido" name="apellido" type="text" class="validate" required />
-						<label for="apellido">Apellido</label>
-						<p class="red-text text-accent-4" th:errors="*{apellido}" th:if="${#fields.hasErrors('apellido')}"></p>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">call</i>
-						<input id="telefono" name="telefono" type="tel" class="validate" required />
-						<label for="telefono">Teléfono</label>
-						<p class="red-text text-accent-4" th:errors="*{telefono}" th:if="${#fields.hasErrors('telefono')}"></p>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">account_circle</i>
-						<input id="username" name="username" type="text" class="validate" required />
-						<label for="username">Usuario</label>
-						<p class="red-text text-accent-4" th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></p>
-					</div>
-					<div class="input-field col s12">
-						<i class="material-icons prefix">https</i>
-						<input id="password" name="password" type="password" class="validate" required />
-						<label for="password">Contraseña</label>
-						<p class="red-text text-accent-4" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
-					</div>
-					<div class="input-field col s12">
-						<i class="material-icons prefix">email</i>
-						<input id="email" name="email" type="email" class="validate" required />
-						<label for="email">Correo Electrónico</label>
-						<p class="red-text text-accent-4" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-					</div>
-					<div class="file-field input-field col s12">
-						<div class="btn">
-							<i class="material-icons">cloud</i>
-							<input type="file">
-						</div>
-						<div class="file-path-wrapper">
-							<input class="file-path validate" type="text" name="file" id="file" required
-								placeholder="Selecciona una imagen">
-						</div>
-					</div>
-					<div class="row center">
-						<a class="waves-effect waves-light btn red" href="/"><i
-								class="material-icons left">cancel</i>Cancelar</a>
-						<button class="waves-effect waves-light btn" type="reset" name="action">Limpiar</button>
-						<button class="waves-effect waves-light btn blue" type="submit" name="action"><i
-								class="material-icons right">control_point</i>Agregar</button>
-					</div>
-				</form>
-				<p>¿Ya tienes una cuenta? <a th:href="@{/login}">Inicia Sesión</a></p>
-			</article>
-		</div>
-	</div>
+    <footer th:replace="layout/footer :: footer"></footer>
 
-	<footer th:replace="layout/footer :: footer"></footer>
-
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</body>
-
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
 </html>

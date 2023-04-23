@@ -1,124 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inicio</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Inicio</title>
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  <body>
+    <header th:replace="layout/navbar :: header"></header>
+    <div th:replace="layout/sidenav :: sidenav"></div>
 
-<body>
-	<header th:replace="layout/navbar :: header"></header>
+    <div class="container">
+      <div class="row" style="margin-top: -4%">
+        <h3 class="col s8">Contactos</h3>
+        <a
+          style="margin-top: -50px"
+          class="waves-effect waves-light btn blue col s4 offset-s8"
+          href="/usuario/nuevo"
+        >
+          <i class="material-icons left">add</i>Registrar Contacto
+        </a>
+      </div>
 
-	<div th:replace="layout/sidenav :: sidenav"></div>
+      <!-- Listado de clientes traido dinámicamente -->
+      <ul class="collection">
+        <div th:each="contacto : ${contactos}" th:object="${contacto}">
+          <li class="collection-item avatar">
+            <img
+              src="#"
+              th:src="@{/images/contactos.png}"
+              alt=""
+              class="circle"
+            />
+            <span class="title" th:text="*{nombre}"></span>
+            <p th:text="*{telefono}"></p>
+            <div class="secondary-content">
+              <a class="waves-light modal-trigger green-text" href="#modal1">
+                <i class="material-icons small">visibility</i>
+              </a>
+              <a th:href="@{/usuario/{id}/editar(id=*{id})}">
+                <i class="material-icons small">edit</i>
+              </a>
+              <a onclick="eliminarContacto(this)">
+                <i class="material-icons red-text small">delete</i>
+              </a>
+              <form
+                th:action="@{/usuario/{id}/eliminar(id=*{id})}"
+                method="POST"
+              ></form>
+            </div>
 
-	<div class="container">
+            <!-- Modal para ver el listado de clientes -->
+            <div id="modal1" class="modal">
+              <div class="modal-content">
+                <h4 class="blue-text center" th:text="*{nombre}"></h4>
+                <div class="row">
+                  <div class="col s12 m5">
+                    <img
+                      src="#"
+                      th:src="@{/images/contactos.png}"
+                      width="200"
+                      height="200"
+                    />
+                  </div>
+                  <div class="col s12 m7">
+                    <blockquote>
+                      <h6 style="font-weight: bold">
+                        Teléfono:
+                        <span
+                          th:text="*{telefono}"
+                          style="font-weight: normal"
+                        ></span>
+                      </h6>
+                    </blockquote>
+                    <blockquote>
+                      <h6 style="font-weight: bold">
+                        Email:
+                        <span
+                          th:text="*{email}"
+                          style="font-weight: normal"
+                        ></span>
+                      </h6>
+                    </blockquote>
+                    <div class="row">
+                      <label
+                        for="descripcion"
+                        style="font-weight: bold; font-size: 1em; color: black"
+                        >Descripción</label
+                      >
+                      <p>ugytfvbnjijougyftcf njiogyub</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="#!"
+                  class="modal-close waves-effect waves-green btn-flat"
+                  >Cerrar</a
+                >
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+      <!-- Fin listado de clientes traido dinámicamente -->
 
-		<div class="row" style="margin-top: -4%;">
-			<h3 class="col s8">Contactos</h3>
-			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8"
-				href="/usuario/nuevo">
-				<i class="material-icons left">add</i>Registrar Contacto
-			</a>
-		</div>
+      <div th:replace="layout/paginacion :: paginacion"></div>
+    </div>
 
-		<ul class="collection">
-			<div th:each="contacto : ${contactos}" th:object="${contacto}">
-				<li class="collection-item avatar">
-					<img src="#" th:src="@{/images/contactos.png}" alt="" class="circle">
-					<span class="title" th:text="*{nombre}"></span>
-					<p th:text="*{telefono}"></p>
-					<div class="secondary-content">
-						<a class="waves-light modal-trigger green-text" href="#modal1"><i
-								class="material-icons small">visibility</i></a>
-						<a th:href="@{/usuario/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
-						<a onclick="eliminarContacto(this)"><i class="material-icons red-text small">delete</i></a>
-						<form th:action="@{/usuario/{id}/eliminar(id=*{id})}" method="POST"></form>
-					</div>
+    <footer th:replace="layout/footer :: footer"></footer>
 
-					<div id="modal1" class="modal">
-						<div class="modal-content">
-							<h4 class="blue-text center" th:text="*{nombre}"></h4>
-							<div class="row">
-								<div class="col s12 m5">
-									<img src="#" th:src="@{/images/contactos.png}" width="200" height="200">
-								</div>
-								<div class="col s12 m7">
-									<blockquote>
-										<h6 style="font-weight: bold;">Teléfono: <span th:text="*{telefono}"
-												style="font-weight: normal;"></span></h6>
-									</blockquote>
-									<blockquote>
-										<h6 style="font-weight: bold;">Email: <span th:text="*{email}"
-												style="font-weight: normal;"></span></h6>
-									</blockquote>
-									<div class="row">
-										<label for="descripcion"
-											style="font-weight: bold; font-size: 1em; color: black">Descripción</label>
-										<p> ugytfvbnjijougyftcf njiogyub</p>
-									</div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      /**
+       * Valida el eliminado de contactos por medio de alertas.
+       */
+      function eliminarContacto(elemento) {
+        Swal.fire({
+          title: "¿Estas seguro de eliminar el contacto?",
+          text: "No podrás revertir esta acción!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, eliminalo!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              "Eliminado!",
+              "Tu contacto ha sido eliminado.",
+              "success"
+            ).then((result) => {
+              elemento.nextElementSibling.submit();
+            });
+          }
+        });
+      }
 
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
-						</div>
-					</div>
-			</div>
-			</li>
-	</div>
-	</ul>
-	<header th:replace="layout/paginacion :: paginacion"></header>
-	</div>
+      /**
+       * Inicializa el modal
+       */
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".modal");
+        var instances = M.Modal.init(elems);
 
-
-
-	<footer th:replace="layout/footer :: footer"></footer>
-
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		function eliminarContacto(elemento) {
-			Swal.fire({
-				title: '¿Estas seguro de eliminar el contacto?',
-				text: "No podrás revertir esta acción!",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Si, eliminalo!'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					Swal.fire(
-						'Eliminado!',
-						'Tu contacto ha sido eliminado.',
-						'success'
-					).then((result) => {
-						elemento.nextElementSibling.submit();
-					})
-				}
-			})
-		}
-
-		document.addEventListener('DOMContentLoaded', function () {
-			var elems = document.querySelectorAll('.modal');
-			var instances = M.Modal.init(elems);
-
-			var modalTriggers = document.querySelectorAll('.modal-trigger');
-			modalTriggers.forEach(function (trigger) {
-				trigger.addEventListener('click', function () {
-					var titulo = trigger.getAttribute('data-cliente');
-					var descripcion = trigger.getAttribute('data-descripcion');
-					document.getElementById('cliente').innerText = titulo;
-					document.getElementById('descripcion-modal').innerText = descripcion;
-				});
-			});
-		});
-	</script>
-</body>
-
+        var modalTriggers = document.querySelectorAll(".modal-trigger");
+        modalTriggers.forEach(function (trigger) {
+          trigger.addEventListener("click", function () {
+            var titulo = trigger.getAttribute("data-cliente");
+            var descripcion = trigger.getAttribute("data-descripcion");
+            document.getElementById("cliente").innerText = titulo;
+            document.getElementById("descripcion-modal").innerText =
+              descripcion;
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
