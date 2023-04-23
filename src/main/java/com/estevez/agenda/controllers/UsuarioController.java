@@ -1,7 +1,6 @@
 package com.estevez.agenda.controllers;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +26,7 @@ import com.estevez.agenda.models.Contacto;
 import com.estevez.agenda.models.Usuario;
 import com.estevez.agenda.repositories.IUsuarioRepository;
 import com.estevez.agenda.service.IContactoService;
+import com.estevez.agenda.service.IUsuarioService;
 import com.estevez.agenda.util.pagination.PageRender;
 
 import jakarta.validation.Valid;
@@ -45,6 +42,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
+
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	/**
 	 * Obtiene un listado de contactos en forma de página parametrizados por el
@@ -96,7 +96,7 @@ public class UsuarioController {
 	 */
 	@PostMapping("/nuevo")
 	String crearContacto(@Valid @ModelAttribute("contacto") Contacto contacto, Authentication authentication,
-			BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("contacto", contacto);
 			return "/usuario/nuevo";
@@ -120,7 +120,10 @@ public class UsuarioController {
 	@GetMapping("/{id}/editar")
 	String editarContacto(@PathVariable Integer id, Model model) {
 		Contacto contacto = contactoService.findContactoById(id);
-		model.addAttribute("contacto", contacto);
+
+		if (Objects.nonNull(contacto)) {
+			model.addAttribute("contacto", contacto);
+		}
 		return "nuevo";
 	}
 
@@ -160,8 +163,12 @@ public class UsuarioController {
 	@PostMapping("/{id}/eliminar")
 	String eliminarContacto(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		Contacto contactoDB = contactoService.findContactoById(id);
-		contactoService.deleteContacto(contactoDB);
-		redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
+		if (Objects.nonNull(contactoDB)) {
+			contactoService.deleteContacto(contactoDB);
+			redirectAttributes.addFlashAttribute("msgExito", "El contacto se ha eliminado correctamente");
+		} else {
+			redirectAttributes.addFlashAttribute("msgError", "El contacto se ha eliminado correctamente");
+		}
 		return "redirect:/usuario/contactos";
 	}
 
@@ -175,12 +182,8 @@ public class UsuarioController {
 	@GetMapping("/home")
 	String home(Authentication authentication, Model model) {
 		String username = ((Principal) authentication).getName();
-		Usuario usuario = usuarioRepository.findByUsername(username);
-		if (usuario != null) {
-			model.addAttribute("usuario", usuario);
-		} else {
-			model.addAttribute("prueba", username);
-		}
+		Usuario usuario = usuarioService.findUserByUsuario(username);
+		if (Objects.nonNull(usuario)) model.addAttribute("usuario", usuario);
 		return "home";
 	}
 
@@ -193,14 +196,10 @@ public class UsuarioController {
 	 */
 	@GetMapping("/about")
 	String about(Authentication authentication, Model model) {
-		String username = ((Principal) authentication).getName();
-		Usuario usuario = usuarioRepository.findByUsername(username);
-		if (usuario != null) {
-			model.addAttribute("usuario", usuario);
-		} else {
-			model.addAttribute("prueba", username);
-		}
-
+		/*String username = ((Principal) authentication).getName();
+		Usuario usuario = usuarioService.findUserByUsuario(username);
+		if (Objects.nonNull(usuario))
+			model.addAttribute("usuario", usuario);*/
 		return "about";
 	}
 
@@ -229,13 +228,10 @@ public class UsuarioController {
 	@GetMapping("/perfil")
 	String grupo(Authentication authentication, Model model) {
 		String username = ((Principal) authentication).getName();
-		Usuario usuario = usuarioRepository.findByUsername(username);
+		Usuario usuario = usuarioService.findUserByUsuario(username);
 
-		if (usuario != null) {
+		if (Objects.nonNull(usuario))
 			model.addAttribute("usuario", usuario);
-		} else {
-			model.addAttribute("prueba", username);
-		}
 		return "perfil";
 	}
 
@@ -246,37 +242,33 @@ public class UsuarioController {
 	 * @return redirección al login.
 	 */
 	@PostMapping("/perfil/{id}/eliminar")
-	String eliminarPerfil(@PathVariable Integer id) {
-		Usuario usuarioDB = usuarioRepository.findById(id).get();
-		if (usuarioDB != null) {
-			usuarioRepository.delete(usuarioDB);
-		}
-		return "redirect:/login";
+	String eliminarPerfil(@PathVariable Integer id, Model model) {
+		Usuario usuarioDB = usuarioService.buscarUsuarioPorId(id);
+		if (Objects.nonNull(usuarioDB)) {
+			usuarioService.eliminarUsuario(usuarioDB);
+			return "redirect:/login";
+		} 
+		return "redirect:/usuario/perfil";
 	}
 
 	/**
-	 * EndPoint encargado de mostrar el formulario para la edición de un contacto
+	 * EndPoint encargado de actualizar la información del perfil del usuario.
 	 * 
-	 * @param id    del contacto a renderizar en los campos.
+	 * @param id      del usuario a actualizar.
+	 * @param usuario datos del usuario a actualizar.
 	 * @param model
-	 * @return template HTML con el formulario de edición de contactos.
+	 * @return redirección a la sección perfil.
 	 */
 	@GetMapping("/perfil/{idUsuario}/editar")
-	String editarPerfil(@PathVariable Integer idUsuario, Usuario usuario, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, Model model) {
-		Usuario usuarioDB = usuarioRepository.findById(idUsuario).orElse(null);
+	String editarPerfil(@PathVariable Integer idUsuario, Usuario usuario, Model model) {
 
-		if (usuarioDB != null) {
-			usuarioDB.setApellido(usuario.getApellido());
-			usuarioDB.setNombre(usuario.getNombre());
-			usuarioDB.setEmail(usuario.getEmail());
-			usuarioDB.setTelefono(usuario.getTelefono());
-			usuarioDB.setUsername(usuario.getUsername());
-			usuarioDB.setFechaActualizacion(new Date());
-			usuarioRepository.save(usuarioDB);
-
+		if (Objects.nonNull(usuario)) {
+			usuario = Objects.nonNull(usuarioService.actualizarUsuario(idUsuario, usuario))
+					? usuarioService.actualizarUsuario(idUsuario, usuario)
+					: usuario;
 		}
-		model.addAttribute("usuario", usuarioDB);
+
+		model.addAttribute("usuario", usuario);
 		return "redirect:/usuario/perfil";
 	}
 

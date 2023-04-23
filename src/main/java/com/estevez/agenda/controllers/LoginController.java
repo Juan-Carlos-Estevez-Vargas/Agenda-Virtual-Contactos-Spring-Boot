@@ -1,6 +1,7 @@
 package com.estevez.agenda.controllers;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +53,7 @@ public class LoginController {
 	 */
 	@GetMapping("/registro")
 	public String registrationForm(Model model) {
-		UsuarioDTO usuario = new UsuarioDTO();
-		model.addAttribute("usuario", usuario);
+		model.addAttribute("usuario",  new UsuarioDTO());
 		return "registro";
 	}
 
@@ -71,10 +71,8 @@ public class LoginController {
 	public String registration(@Valid @ModelAttribute("usuario") UsuarioDTO usuarioDTO, BindingResult result,
 			Model model) {
 		Usuario existingUser = usuarioService.findUserByUsuario(usuarioDTO.getUsername());
-		log.info("Informacion " + usuarioDTO.getNombre());
 
-		if (existingUser != null)
-			result.rejectValue("username", null, "User already registered !!!");
+		if (Objects.nonNull(existingUser)) result.rejectValue("username", null, "User already registered !!!");
 
 		if (result.hasErrors()) {
 			model.addAttribute("usuario", usuarioDTO);

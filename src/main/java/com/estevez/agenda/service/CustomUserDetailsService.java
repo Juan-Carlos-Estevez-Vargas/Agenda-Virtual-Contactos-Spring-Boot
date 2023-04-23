@@ -1,5 +1,6 @@
 package com.estevez.agenda.service;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
 		log.info(usernameOrEmail);
 		Usuario usuario = usuarioRepository.findByUsername(usernameOrEmail);
-		if (usuario != null) {
+		if (Objects.nonNull(usuario)) {
 			return new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(),
 					usuario.getRoles().stream().map((rol) -> new SimpleGrantedAuthority(rol.getNombre()))
 							.collect(Collectors.toList()));
