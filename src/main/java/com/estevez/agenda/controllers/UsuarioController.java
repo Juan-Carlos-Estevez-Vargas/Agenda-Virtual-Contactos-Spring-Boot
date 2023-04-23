@@ -1,6 +1,8 @@
 package com.estevez.agenda.controllers;
 
 import java.security.Principal;
+import java.util.Date;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,7 +42,7 @@ public class UsuarioController {
 
 	@Autowired
 	private IContactoService contactoService;
-	
+
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 
@@ -147,7 +152,8 @@ public class UsuarioController {
 
 	/**
 	 * EndPoint encargado de eliminar un contacto en la aplicación.
-	 * @param id del contacto a eliminar
+	 * 
+	 * @param id                 del contacto a eliminar
 	 * @param redirectAttributes
 	 * @return redirección al listado de contactos.
 	 */
@@ -161,6 +167,7 @@ public class UsuarioController {
 
 	/**
 	 * Página de inicio d ela aplicación.
+	 * 
 	 * @param authentication usuario logueado en la aplicación.
 	 * @param model
 	 * @return template HTML de la página de inicio.
@@ -179,6 +186,7 @@ public class UsuarioController {
 
 	/**
 	 * Página about de la aplicación.
+	 * 
 	 * @param authentication usuario logueado en la aplicación.
 	 * @param model
 	 * @return template HTML de la página de about.
@@ -200,12 +208,12 @@ public class UsuarioController {
 	String grupo(@RequestParam(name = "grupo") String grupo, Model model,
 			@RequestParam(name = "page", defaultValue = "0") int pagina) {
 		if (grupo.equals("familia")) {
-			//Pageable pageRequest = PageRequest.of(pagina, 4);
-			
-			//Page<Contacto> contactos = contactoService.findAll(pageRequest);
-			//PageRender<Contacto> pageRender = new PageRender<>("/contactos", contactos);
-			//model.addAttribute("contactos", contactos);
-			//model.addAttribute("page", pageRender);
+			// Pageable pageRequest = PageRequest.of(pagina, 4);
+
+			// Page<Contacto> contactos = contactoService.findAll(pageRequest);
+			// PageRender<Contacto> pageRender = new PageRender<>("/contactos", contactos);
+			// model.addAttribute("contactos", contactos);
+			// model.addAttribute("page", pageRender);
 			return "grupos";
 		}
 		return "grupos";
@@ -213,6 +221,7 @@ public class UsuarioController {
 
 	/**
 	 * Muestra los datos del perfil del usuario que ha iniciado sesión.
+	 * 
 	 * @param authentication usuario logueado en la aplicación.
 	 * @param model
 	 * @return template HTML de la página de perfil.
@@ -229,9 +238,10 @@ public class UsuarioController {
 		}
 		return "perfil";
 	}
-	
+
 	/**
 	 * EndPoint encargado de eliminar un perfil en la aplicación.
+	 * 
 	 * @param id del perfil a eliminar
 	 * @return redirección al login.
 	 */
@@ -242,6 +252,32 @@ public class UsuarioController {
 			usuarioRepository.delete(usuarioDB);
 		}
 		return "redirect:/login";
+	}
+
+	/**
+	 * EndPoint encargado de mostrar el formulario para la edición de un contacto
+	 * 
+	 * @param id    del contacto a renderizar en los campos.
+	 * @param model
+	 * @return template HTML con el formulario de edición de contactos.
+	 */
+	@GetMapping("/perfil/{idUsuario}/editar")
+	String editarPerfil(@PathVariable Integer idUsuario, Usuario usuario, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, Model model) {
+		Usuario usuarioDB = usuarioRepository.findById(idUsuario).orElse(null);
+
+		if (usuarioDB != null) {
+			usuarioDB.setApellido(usuario.getApellido());
+			usuarioDB.setNombre(usuario.getNombre());
+			usuarioDB.setEmail(usuario.getEmail());
+			usuarioDB.setTelefono(usuario.getTelefono());
+			usuarioDB.setUsername(usuario.getUsername());
+			usuarioDB.setFechaActualizacion(new Date());
+			usuarioRepository.save(usuarioDB);
+
+		}
+		model.addAttribute("usuario", usuarioDB);
+		return "redirect:/usuario/perfil";
 	}
 
 }
