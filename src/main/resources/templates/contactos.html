@@ -18,7 +18,8 @@
 
 		<div class="row" style="margin-top: -4%;">
 			<h3 class="col s8">Contactos</h3>
-			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8" href="/usuario/nuevo">
+			<a style="margin-top: -50px;" class="waves-effect waves-light btn blue col s4 offset-s8"
+				href="/usuario/nuevo">
 				<i class="material-icons left">add</i>Registrar Contacto
 			</a>
 		</div>
@@ -30,16 +31,6 @@
 					<span class="title" th:text="*{nombre}"></span>
 					<p th:text="*{telefono}"></p>
 					<div class="secondary-content">
-						<a data-target="modal" class="modal-trigger"><i
-								class="material-icons green-text small">remove_red_eye</i></a>
-						<div id="modal" class="modal">
-							<div class="modal-content">
-								<h3 th:text="*{nombre}"></h3>
-							</div>
-							<div class="modal-footer">
-								<a hre="" class="btn modal-close">Cerrar</a>
-							</div>
-						</div>
 						<a th:href="@{/usuario/{id}/editar(id=*{id})}"><i class="material-icons small">edit</i></a>
 						<a onclick="eliminarContacto(this)"><i class="material-icons red-text small">delete</i></a>
 						<form th:action="@{/usuario/{id}/eliminar(id=*{id})}" method="POST"></form>
@@ -57,12 +48,6 @@
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var elems = document.querySelectorAll('.modal');
-			var instances = M.Modal.init(elems);
-		});
-	</script>
 	<script>
 		function eliminarContacto(elemento) {
 			Swal.fire({
