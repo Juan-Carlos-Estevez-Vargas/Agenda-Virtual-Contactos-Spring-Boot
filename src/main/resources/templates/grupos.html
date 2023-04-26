@@ -15,7 +15,8 @@
 
 	<div class="container">
 		<div class="row" style="margin-top: -4%">
-			<h3 class="col s8"><i class="material-icons small green-text">local_florist</i> <span th:text="${titulo}"></span></h3>
+			<h3 class="col s8"><i class="material-icons small green-text">local_florist</i> <span
+					th:text="${titulo}"></span></h3>
 
 			<!-- Crea el botón -->
 			<a class="dropdown-trigger btn waves-effect waves-light  blue col s4 offset-s8" href="#"
@@ -23,8 +24,16 @@
 
 			<!-- Crea la lista de opciones -->
 			<ul id="dropdown2" class="dropdown-content">
-				<li th:each="select : ${selects}" th:value="${select.nombre}"><a href="#!"
-						th:text="${select.nombre}">Opción 1</a></li>
+				<li th:each="select : ${selects}" id="contacto-[[${select.id}]]">
+					<form method="POST"
+						th:action="@{/usuario/{idContacto}/contacto-grupo(idContacto=${select.id}, grupo=${titulo})}">
+						<input type="hidden" th:name="idContacto" th:value="${idContacto}" />
+						<button class="btn-flat waves-effect" type="submit">
+							<p class="center blue-text" th:if="${contactos.isEmpty()}" disabled>Aún no hay registros</p>
+							<a th:text="${select.nombre}"></a>
+						</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 
@@ -71,7 +80,10 @@
 		$(document).ready(function () {
 			$('.dropdown-trigger').dropdown();
 		});
+
+
 	</script>
+
 </body>
 
 </html>

@@ -293,5 +293,16 @@ public class UsuarioController {
 		model.addAttribute("usuario", usuario);
 		return "redirect:/usuario/perfil";
 	}
+	
+	@PostMapping("/{idContacto}/contacto-grupo")
+	public String guardarContactoGrupo(@PathVariable Integer idContacto, Model model, @RequestParam(name = "grupo") String grupo) {
+	   Contacto contacto = contactoService.findContactoById(idContacto);
+	   Grupo grupoDB = grupoRepository.findByNombre(grupo);
+	   if (contacto != null && grupoDB != null ) {
+		   contacto.setGrupo(grupoDB);
+		   contactoService.save(contacto);
+	   }
+	   return "about";
+	}
 
 }
