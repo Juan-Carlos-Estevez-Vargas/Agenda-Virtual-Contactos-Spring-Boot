@@ -11,10 +11,24 @@
 
 <body>
 	<header th:replace="layout/navbar :: header"></header>
-
 	<div th:replace="layout/sidenav :: sidenav"></div>
 
 	<div class="container">
+		<div class="row" style="margin-top: -4%">
+			<h3 class="col s8"><i class="material-icons small green-text">local_florist</i> <span th:text="${titulo}"></span></h3>
+
+			<!-- Crea el botón -->
+			<a class="dropdown-trigger btn waves-effect waves-light  blue col s4 offset-s8" href="#"
+				data-target="dropdown2" style="margin-top: -50px">Agregar Contacto</a>
+
+			<!-- Crea la lista de opciones -->
+			<ul id="dropdown2" class="dropdown-content">
+				<li th:each="select : ${selects}" th:value="${select.nombre}"><a href="#!"
+						th:text="${select.nombre}">Opción 1</a></li>
+			</ul>
+		</div>
+
+		<p class="center blue-text" th:if="${contactos.isEmpty()}">Aún no hay registros</p>
 		<ul class="collection">
 			<div th:each="contacto : ${contactos}" th:object="${contacto}">
 				<li class="collection-item avatar">
@@ -39,8 +53,7 @@
 				</li>
 			</div>
 		</ul>
-		
-		<header th:replace="layout/paginacion :: paginacion"></header>
+		<div th:replace="layout/paginacion :: paginacion"></div>
 	</div>
 
 	<footer th:replace="layout/footer :: footer"></footer>
@@ -48,6 +61,17 @@
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>document.addEventListener('DOMContentLoaded', function () {
+			var select = document.querySelectorAll('select');
+			M.FormSelect.init(select, {});
+		});</script>
+
+	<script>
+		$(document).ready(function () {
+			$('.dropdown-trigger').dropdown();
+		});
+	</script>
 </body>
 
 </html>

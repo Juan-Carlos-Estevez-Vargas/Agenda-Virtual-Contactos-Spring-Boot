@@ -1,9 +1,12 @@
 package com.estevez.agenda.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.estevez.agenda.models.Contacto;
+import com.estevez.agenda.models.Grupo;
 import com.estevez.agenda.models.Usuario;
 
 public interface IContactoService {
@@ -47,5 +50,9 @@ public interface IContactoService {
 	 * @return listado de contactos encontrado.
 	 */
 	Page<Contacto> findAllByUsuario(Usuario usuario, Pageable pageRequest);
+	
+	List<Contacto> findAllByUsuario(Usuario usuario);
+	
+	Page<Contacto> findAllByGrupo(Grupo grupo, Pageable pageRequest);
 
 }

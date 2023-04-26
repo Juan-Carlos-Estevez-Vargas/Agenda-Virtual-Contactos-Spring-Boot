@@ -1,6 +1,7 @@
 package com.estevez.agenda.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.estevez.agenda.models.Contacto;
+import com.estevez.agenda.models.Grupo;
 import com.estevez.agenda.models.Usuario;
+import com.estevez.agenda.repositories.IGrupoRepository;
 import com.estevez.agenda.repositories.IUsuarioRepository;
 import com.estevez.agenda.service.IContactoService;
 import com.estevez.agenda.service.IUsuarioService;
@@ -42,6 +45,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
+
+	@Autowired
+	private IGrupoRepository grupoRepository;
 
 	@Autowired
 	private IUsuarioService usuarioService;
@@ -183,7 +189,8 @@ public class UsuarioController {
 	String home(Authentication authentication, Model model) {
 		String username = ((Principal) authentication).getName();
 		Usuario usuario = usuarioService.findUserByUsuario(username);
-		if (Objects.nonNull(usuario)) model.addAttribute("usuario", usuario);
+		if (Objects.nonNull(usuario))
+			model.addAttribute("usuario", usuario);
 		return "home";
 	}
 
@@ -196,25 +203,40 @@ public class UsuarioController {
 	 */
 	@GetMapping("/about")
 	String about(Authentication authentication, Model model) {
-		/*String username = ((Principal) authentication).getName();
-		Usuario usuario = usuarioService.findUserByUsuario(username);
-		if (Objects.nonNull(usuario))
-			model.addAttribute("usuario", usuario);*/
 		return "about";
 	}
 
 	@GetMapping("/grupos")
-	String grupo(@RequestParam(name = "grupo") String grupo, Model model,
+	String grupo(@RequestParam(name = "grupo") String grupo, Model model, Authentication authentication,
 			@RequestParam(name = "page", defaultValue = "0") int pagina) {
-		if (grupo.equals("familia")) {
-			// Pageable pageRequest = PageRequest.of(pagina, 4);
+		String username = ((Principal) authentication).getName();
+		Usuario usuario = usuarioService.findUserByUsuario(username);
+		List<Contacto> options = contactoService.findAllByUsuario(usuario);
+		Grupo grupoDB = grupoRepository.findByNombre(grupo);
 
-			// Page<Contacto> contactos = contactoService.findAll(pageRequest);
-			// PageRender<Contacto> pageRender = new PageRender<>("/contactos", contactos);
-			// model.addAttribute("contactos", contactos);
-			// model.addAttribute("page", pageRender);
-			return "grupos";
+		switch (grupo) {
+			case "familia":
+			case "amigos":
+			case "trabajo":
+			case "estudio":
+				if (grupoDB != null) filtrarGrupo(pagina, grupoDB, options, model);
+				break;
+			default:
+				break;
 		}
+
+		return "grupos";
+	}
+
+	private String filtrarGrupo(int pagina, Grupo grupo, List<Contacto> options, Model model) {
+		Pageable pageRequest = PageRequest.of(pagina, 4);
+		Page<Contacto> contactos = contactoService.findAllByGrupo(grupo, pageRequest);
+		PageRender<Contacto> pageRender = new PageRender<>("/usuario/grupo", contactos);
+		model.addAttribute("contactos", contactos);
+		model.addAttribute("selects", options);
+		model.addAttribute("page", pageRender);
+		model.addAttribute("titulo",
+				grupo.getNombre().substring(0, 1).toUpperCase() + grupo.getNombre().substring(1).toLowerCase());
 		return "grupos";
 	}
 
@@ -247,7 +269,7 @@ public class UsuarioController {
 		if (Objects.nonNull(usuarioDB)) {
 			usuarioService.eliminarUsuario(usuarioDB);
 			return "redirect:/login";
-		} 
+		}
 		return "redirect:/usuario/perfil";
 	}
 

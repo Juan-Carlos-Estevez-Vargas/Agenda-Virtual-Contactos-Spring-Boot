@@ -7,5 +7,7 @@ import com.estevez.agenda.models.Grupo;
 
 @Repository
 public interface IGrupoRepository extends JpaRepository<Grupo, Long> {
+	
+	Grupo findByNombre(String nombre);
 
 }

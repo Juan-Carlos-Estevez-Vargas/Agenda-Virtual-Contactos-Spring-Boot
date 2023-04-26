@@ -56,5 +56,9 @@ public class Contacto {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grupo")
+    private Grupo grupo;
 
 }

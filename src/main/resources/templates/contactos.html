@@ -31,6 +31,7 @@
       </div>
 
       <!-- Listado de clientes traido dinámicamente -->
+      <p class="center blue-text" th:if="${contactos.isEmpty()}">Aún no hay registros</p>
       <ul class="collection">
         <div th:each="contacto : ${contactos}" th:object="${contacto}">
           <li class="collection-item avatar">

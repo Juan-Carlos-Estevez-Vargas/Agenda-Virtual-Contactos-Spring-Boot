@@ -1,6 +1,7 @@
 package com.estevez.agenda.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.estevez.agenda.models.Contacto;
+import com.estevez.agenda.models.Grupo;
 import com.estevez.agenda.models.Usuario;
 import com.estevez.agenda.repositories.IContactoRepository;
 import com.estevez.agenda.service.IContactoService;
@@ -48,6 +50,16 @@ public class ContactoServiceImpl implements IContactoService {
 	@Override
 	public Page<Contacto> findAllByUsuario(Usuario usuario, Pageable pageRequest) {
 		return contactoRepository.findAllByUsuario(usuario ,pageRequest);
+	}
+
+	@Override
+	public Page<Contacto> findAllByGrupo(Grupo grupo, Pageable pageRequest) {
+		return contactoRepository.findAllByGrupo(grupo, pageRequest);
+	}
+
+	@Override
+	public List<Contacto> findAllByUsuario(Usuario usuario) {
+		return contactoRepository.findAllByUsuario(usuario);
 	}
 
 }
